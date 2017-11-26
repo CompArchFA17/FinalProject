@@ -1,6 +1,8 @@
 `include "A module that has stuff for main rounds and final round"
 module MainAlgorithm(
 
+// include inputs and outputs
+
 );
 
 reg [2:0] state;
@@ -11,12 +13,7 @@ localparam FinalRound = 3'b011;
 reg [4:0] counter = 4'b0;
 
 // Key Expansion Algorithm goes here
-
-
-// Next - count. Do 9 rounds. 
-
-
-// Finally, final round!
+KeyExpansionAlgorithm
 
 always @(*) begin
 
