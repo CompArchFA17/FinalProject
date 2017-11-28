@@ -1,8 +1,8 @@
 module AddRoundKey(
 
-reg [4:4] RoundKey; 
-reg [4:4] State;
-wire [4:4] ARKOut;
+input [4:4] RoundKey; 
+input [4:4] State;
+output [4:4] ARKOut;
 
 );
 
