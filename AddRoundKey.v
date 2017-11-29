@@ -1,7 +1,7 @@
 // don't actually need this for ARK. Will need for Shift Rows.
-`define STATE(r,c) inarray[(elements*(c-1))+(r-1)];
-`define ROUNDKEY(r,c) keyarray[(elements*(c-1))+(r-1)];
-`define OUT(r,c) outarray[(elements*(c-1))+(r-1)];
+`define STATE(r,c) inarray[(dimension*dimension-1)-((dimension*(c-1))+(r-1))];
+`define ROUNDKEY(r,c) keyarray[(dimension*dimension-1)-((dimension*(c-1))+(r-1))];
+`define OUT(r,c) outarray[(dimension*dimension-1)-((dimension*(c-1))+(r-1))];
 
 module AddRoundKey(
 // each byte (entry) of the state is combined with a block of the round key using bitwise xor
@@ -10,7 +10,7 @@ input [3:0][1:0] keyarray,
 output [3:0][1:0] outarray
 );
 
-parameter elements = 2;
+parameter dimension = 2;
 
 genvar i, j;
 generate
