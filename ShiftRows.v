@@ -6,12 +6,12 @@ module ShiftRows(
 
 input [3:0] inarray,
 input clk,
-output reg [3:0] outarray,
-output reg X,
-output reg Y
+output reg [3:0] outarray
+
 );
 parameter dimension = 2;
-
+reg X;
+reg Y;
 reg [1:0] counter = 2'b0;
 
 always @(posedge clk) begin
@@ -23,7 +23,7 @@ always @(posedge clk) begin
 	end
 	
 	if (counter == 2) begin
-		`OUT(2,1) <= Y;
+		//`OUT(2,1) <= Y;
 		outarray[3] <= Y;
 	end
 
@@ -37,10 +37,10 @@ module testSR();
 reg [3:0] s;
 reg clk;
 wire [3:0] so;
-wire X;
-wire Y;
+//wire X;
+//wire Y;
 
-ShiftRows shift(s, clk, so, X, Y);
+ShiftRows shift(s, clk, so);
 
     initial clk=0;
     always #10 clk=!clk;    // 50MHz Clock  
@@ -51,8 +51,8 @@ initial begin
 $display("ShiftOut | StateIn | X | Y");
 s = 4'b1010; #200
 $display("%b | %b ", so, s); // clearly our indexing is messed up, but we should be able to get these values into X and Y
-$display("%b", X); // X[0]
-$display("%b", Y); // X[1]
+//$display("%b", X); // X[0]
+//$display("%b", Y); // X[1]
 
 $finish;
 end
