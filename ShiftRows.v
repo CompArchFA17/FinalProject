@@ -1,6 +1,6 @@
-`define STATE(r,c) inarray[(dimension*dimension-1)-((dimension*(c-1))+(r-1))];
-`define OUT(r,c) outarray[(dimension*dimension-1)-((dimension*(c-1))+(r-1))];
+`define STATE(r,c) inarray[(dimension*dimension-1)-((dimension*(c-1))+(r-1))]
 
+`define OUT(r,c) outarray[(dimension*dimension-1)-((dimension*(c-1))+(r-1))]
 
 module ShiftRows(
 
@@ -18,8 +18,8 @@ always @(posedge clk) begin
 	counter = counter + 1;
 	
 	if (counter == 1) begin
-		`OUT(2,2) <= `STATE(2,1);
-		`OUT(2,1) <= `STATE(2,2);
+		`OUT(2,2) <= `STATE(2,1) ;
+		`OUT(2,1) <= `STATE(2,2) ;
 	end
 	/*
 	if (counter == 2) begin
@@ -31,6 +31,8 @@ always @(posedge clk) begin
 end
 
 endmodule
+
+
 /*
 module testSR();
 

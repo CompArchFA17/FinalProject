@@ -16,7 +16,8 @@ genvar i, j;
 generate
 	for (i = 0; i < 4; i = i+1) begin
 		for (j = 0; j < 2; j = j + 1) begin		
-			xor(outarray[i][j], inarray[i][j], keyarray[i][j]);
+			//xor(outarray[i][j], inarray[i][j], keyarray[i][j]);
+			xor(`OUT(i,j), `STATE(i,j), `ROUNDKEY(i,j));
 		end
 	end
 endgenerate
