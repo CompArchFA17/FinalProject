@@ -18,20 +18,20 @@ always @(posedge clk) begin
 	counter = counter + 1;
 	
 	if (counter == 1) begin
-		X <= `STATE(2,1);
-		Y <= `STATE(2,2);
+		`OUT(2,2) <= `STATE(2,1);
+		`OUT(2,1) <= `STATE(2,2);
 	end
-	
+	/*
 	if (counter == 2) begin
 		//`OUT(2,1) <= Y;
 		outarray[3] <= Y;
 	end
-
+*/
 
 end
 
 endmodule
-
+/*
 module testSR();
 
 reg [3:0] s;
@@ -50,7 +50,7 @@ initial begin
 
 $display("ShiftOut | StateIn | X | Y");
 s = 4'b1010; #200
-$display("%b | %b ", so, s); // clearly our indexing is messed up, but we should be able to get these values into X and Y
+$display("%b | %b ", so, s); 8/// clearly our indexing is messed up, but we should be able to get these values into X and Y
 //$display("%b", X); // X[0]
 //$display("%b", Y); // X[1]
 
