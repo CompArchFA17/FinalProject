@@ -1,7 +1,7 @@
 // don't actually need this for ARK. Will need for Shift Rows.
-`define STATE(r,c) inarray[(dimension*dimension-1)-((dimension*(c-1))+(r-1))];
-`define ROUNDKEY(r,c) keyarray[(dimension*dimension-1)-((dimension*(c-1))+(r-1))];
-`define OUT(r,c) outarray[(dimension*dimension-1)-((dimension*(c-1))+(r-1))];
+`define STATE(r,c) inarray[(dimension*dimension-1)-((dimension*(c-1))+(r-1))]
+`define ROUNDKEY(r,c) keyarray[(dimension*dimension-1)-((dimension*(c-1))+(r-1))]
+`define OUT(r,c) outarray[(dimension*dimension-1)-((dimension*(c-1))+(r-1))]
 
 module AddRoundKey(
 // each byte (entry) of the state is combined with a block of the round key using bitwise xor
@@ -12,12 +12,12 @@ output [3:0][1:0] outarray
 
 parameter dimension = 2;
 
-genvar i, j;
+genvar r, c;
 generate
-	for (i = 0; i < 4; i = i+1) begin
-		for (j = 0; j < 2; j = j + 1) begin		
-			//xor(outarray[i][j], inarray[i][j], keyarray[i][j]);
-			xor(`OUT(i,j), `STATE(i,j), `ROUNDKEY(i,j));
+	for (r = 0; r < 4; r = r+1) begin
+		for (c = 0; c < 2; c = c + 1) begin		
+			xor(outarray[r][c], inarray[r][c], keyarray[r][c]);
+			//xor(outarray[(dimension*dimension-1)-((dimension*(c-1))+(r-1))], inarray[(dimension*dimension-1)-((dimension*(c-1))+(r-1))], keyarray[(dimension*dimension-1)-((dimension*(c-1))+(r-1))]);
 		end
 	end
 endgenerate

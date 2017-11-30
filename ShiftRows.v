@@ -2,7 +2,7 @@
 
 `define OUT(r,c) outarray[(dimension*dimension-1)-((dimension*(c-1))+(r-1))]
 
-module ShiftRows(
+module ShiftRows (
 
 input [3:0] inarray,
 input clk,
@@ -32,27 +32,21 @@ end
 
 endmodule
 
-
-/*
 module testSR();
 
 reg [3:0] s;
 reg clk;
 wire [3:0] so;
-//wire X;
-//wire Y;
-
 ShiftRows shift(s, clk, so);
 
     initial clk=0;
     always #10 clk=!clk;    // 50MHz Clock  
 
-
 initial begin
 
 $display("ShiftOut | StateIn | X | Y");
-s = 4'b1010; #200
-$display("%b | %b ", so, s); 8/// clearly our indexing is messed up, but we should be able to get these values into X and Y
+s = 4'b1011; #200
+$display("%b | %b ", so, s); // clearly our indexing is messed up, but we should be able to get these values into X and Y
 //$display("%b", X); // X[0]
 //$display("%b", Y); // X[1]
 
@@ -60,5 +54,4 @@ $finish;
 end
 
 endmodule
-
 
