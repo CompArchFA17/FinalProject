@@ -1,4 +1,4 @@
-// don't actually need this for ARK. Will need for Shift Rows.
+// it actually makes no sense to use macros on ARK, so we won't!
 `define STATE(r,c) inarray[(dimension*dimension-1)-((dimension*(c-1))+(r-1))]
 `define ROUNDKEY(r,c) keyarray[(dimension*dimension-1)-((dimension*(c-1))+(r-1))]
 `define OUT(r,c) outarray[(dimension*dimension-1)-((dimension*(c-1))+(r-1))]
@@ -17,7 +17,6 @@ generate
 	for (r = 0; r < 4; r = r+1) begin
 		for (c = 0; c < 2; c = c + 1) begin		
 			xor(outarray[r][c], inarray[r][c], keyarray[r][c]);
-			//xor(outarray[(dimension*dimension-1)-((dimension*(c-1))+(r-1))], inarray[(dimension*dimension-1)-((dimension*(c-1))+(r-1))], keyarray[(dimension*dimension-1)-((dimension*(c-1))+(r-1))]);
 		end
 	end
 endgenerate
