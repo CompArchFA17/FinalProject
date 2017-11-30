@@ -9,24 +9,68 @@ input [7:0] inarray, // [7:0] is a two column, four row matrix
 input clk,
 output reg [7:0] outarray
 );
-
-
-always @(posedge clk) begin
-// THIS STUFF BELOW IS FALSE
-// if row = 1, then do x2 (shift left 1, then xor with 1b)
-// if row = 2, then do 3x
-// if row = 3, then do x
-// if row = 4, then do x
-	column = column + 1;
-	if (column == 1) begin
-		if (row == 1) begin
-			X(row, column) <= `STATE(
-			`OUT(row, column) <= `
-		end
-	end
-
-end
-
-
+reg [1:0] counter = 2'b0;
 
 endmodule
+
+module Mult2(
+input [7:0] inmult2,
+input clk,
+output reg [7:0] outmult2
+);
+
+reg isone;
+reg [7:0] shiftedin;
+reg [7:0] oneB = 8'b00011011;
+reg [1:0] counter = 2'b0;
+
+always @(posedge clk) begin
+counter = counter + 1;
+
+	if (counter == 1) begin
+		isone <= inmult2[7];
+		shiftedin <= {inmult2[6:0], 1'b0};
+	end
+	else if (counter == 2) begin
+		if (isone == 1) begin
+			outmult2 <= shiftedin^oneB;
+			//xor(outmult2, 8'b00001111, 8'b11110000);
+		end
+		else
+			outmult2 <= shiftedin;
+	end
+	else if (counter == 3)
+		counter <= 0;
+end
+
+endmodule
+
+module testMixCol();
+
+reg [7:0] inm2;
+reg clk;
+wire [7:0] outm2;
+
+Mult2 multiply(inm2, clk, outm2);
+
+initial clk=0;
+always #10 clk=!clk;    // 50MHz Clock  
+
+initial begin
+inm2 = 8'b11010100; #40
+$display("%b | %b ", outm2, inm2);
+
+$finish;
+end
+
+endmodule
+
+
+
+
+
+
+
+
+
+
