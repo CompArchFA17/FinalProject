@@ -11,14 +11,9 @@ output reg [31:0] outarray
 );
 reg [1:0] counter = 2'b0;
 
-always @(posedge clk) begin
+// for number = 1 to 4
+// for elements n
 
-genvar col, row;
-generate
-
-
-
-endgenerate
 
 end
 
