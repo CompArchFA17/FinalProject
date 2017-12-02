@@ -178,7 +178,7 @@ $display("%b", Z);
 inmix = 128'b1101010000000000000000001011111110111111000000000000000011010100;  #20000
 //inmix = 8'b11010100; #2000
 
-$display("%b", outmix);
+$display("%b ||| %b", outmix, inmix);
 
 $finish;
 end

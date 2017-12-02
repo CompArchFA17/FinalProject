@@ -18,6 +18,7 @@ always @(posedge clk) begin
 	counter = counter + 1;
 	
 	if (counter == 1) begin
+	/*
 		`OUT(1,1) <= `STATE(1,1) ;
 		`OUT(1,2) <= `STATE(1,2) ;
 		`OUT(1,3) <= `STATE(1,3) ;
@@ -36,7 +37,7 @@ always @(posedge clk) begin
 		`OUT(4,2) <= `STATE(4,1) ;
 		`OUT(4,3) <= `STATE(4,2) ;
 		`OUT(4,4) <= `STATE(4,3) ;
-		`OUT(4,1) <= `STATE(4,4) ;
+		`OUT(4,1) <= `STATE(4,4) ; */
 		
 	end
 	else if (counter == 2) begin
