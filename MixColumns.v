@@ -9,33 +9,31 @@ input [63:0] inarray, // [7:0] is a two column, four row matrix
 input clk,
 output [63:0] outarray
 );
+parameter length = 63;
 
-wire [7:0] d0b0OUT;
-wire [7:0] d0b1OUT;
-wire [7:0] d0b2OUT;
-wire [7:0] d0b3OUT;
-wire [7:0] d0OUT;
+wire [length:0] d0b0OUT;
+wire [length:0] d0b1OUT;
+wire [length:0] d0b2OUT;
+wire [length:0] d0b3OUT;
+wire [length:0] d0OUT;
 
-wire [7:0] d1b0OUT;
-wire [7:0] d1b1OUT;
-wire [7:0] d1b2OUT;
-wire [7:0] d1b3OUT;
-wire [7:0] d1OUT;
+wire [length:0] d1b0OUT;
+wire [length:0] d1b1OUT;
+wire [length:0] d1b2OUT;
+wire [length:0] d1b3OUT;
+wire [length:0] d1OUT;
 
-wire [7:0] d2b0OUT;
-wire [7:0] d2b1OUT;
-wire [7:0] d2b2OUT;
-wire [7:0] d2b3OUT;
-wire [7:0] d2OUT;
+wire [length:0] d2b0OUT;
+wire [length:0] d2b1OUT;
+wire [length:0] d2b2OUT;
+wire [length:0] d2b3OUT;
+wire [length:0] d2OUT;
 
-wire [7:0] d3b0OUT;
-wire [7:0] d3b1OUT;
-wire [7:0] d3b2OUT;
-wire [7:0] d3b3OUT;
-wire [7:0] d3OUT;
-
-wire [15:0] d0d1;
-wire [15:0] d2d3;
+wire [length:0] d3b0OUT;
+wire [length:0] d3b1OUT;
+wire [length:0] d3b2OUT;
+wire [length:0] d3b3OUT;
+wire [length:0] d3OUT;
 
 //parameter c = 1;
 
@@ -45,9 +43,13 @@ generate
 
 		
 		Mult2 d0b0(inarray[((c-1)*32+31):(c-1)*32+24], clk, d0b0OUT);
+		
 		Mult3 d0b1(inarray[((c-1)*32+23):(c-1)*32+16], clk, d0b1OUT);
+		
 		assign d0b2OUT = inarray[((c-1)*32+15):(c-1)*32+8];
+		
 		assign d0b3OUT = inarray[(((c-1)*32)+7):((c-1)*32)];
+		
 		BigXOR d0xor(d0b0OUT, d0b1OUT, d0b2OUT, d0b3OUT, d0OUT);
 
 		assign d1b0OUT = inarray[((c-1)*32+31):(c-1)*32+24];
@@ -58,7 +60,7 @@ generate
 		
 		assign d2b0OUT = inarray[((c-1)*32+31):(c-1)*32+24];
 		assign d2b1OUT = inarray[((c-1)*32+23):(c-1)*32+16];
-		Mult2 d2b2(inarray[((c-1)*32+15):(c-1)*32+8], clk, d2b2OUT);
+		Mult2 d2b2(inarray[((c-1)*32+15):(c-1)*32+8], clk, d2b2OUT;
 		Mult3 d2b3(inarray[((c-1)*32+7):(c-1)*32], clk, d2b3OUT);
 		BigXOR d2xor(d2b0OUT, d2b1OUT, d2b2OUT, d2b3OUT, d2OUT);
 		
@@ -68,8 +70,8 @@ generate
 		Mult2 d3b3(inarray[((c-1)*32+7):(c-1)*32], clk, d3b3OUT);
 		BigXOR d3xor(d3b0OUT, d3b1OUT, d3b2OUT, d3b3OUT, d3OUT);
 		
-		assign d0d1 = {d0OUT, d1OUT};
-		assign d2d3 = {d2OUT, d3OUT};
+		//assign d0d1 = {d0OUT, d1OUT};
+		//assign d2d3 = {d2OUT, d3OUT};
 		
 		assign outarray[(32*(c-1)+31):(32*(c-1))] = {d0d1, d2d3};
 		//assign outarray = d1b1OUT;
@@ -173,7 +175,7 @@ inm3 = 8'b00000000; #60
 $display("%b | %b", outm3, inm3);
 A = 8'b10101010; B = 8'b01010101; C = 8'b00010001; D = 8'b10001000; #40
 $display("%b", Z);
-inmix = 64'b1101010010111111000000000000000011010100101111110000000000000000;  #4000
+inmix = 64'b1101010010111111000000000000000010111111110101000000000000000000;  #20000
 //inmix = 8'b11010100; #2000
 
 $display("%b", outmix);
