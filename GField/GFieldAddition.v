@@ -3,7 +3,7 @@
 // GFieldAddOne
 // GFieldAddTwo
 // GFiledAddFour
-// GFieldAddEiwght
+// GFieldAddEight
 
 
 
@@ -14,6 +14,52 @@ output sum
 );
 	xor sum1(sum, a, b);	
 endmodule
+
+
+module GFieldAddTwo(
+input [0:1] c, 
+input [0:1] d, 
+output [0:1] sum2
+);
+	xor sum2a(sum2[0], c[0], d[0]);
+	xor sum2b(sum2[1], c[1], d[1]);	
+endmodule
+
+
+module GFieldAddFour(
+input [0:3] m, 
+input [0:3] n, 
+output [0:3] sum4
+);
+	xor sum4a(sum4[0], m[0], n[0]);
+	xor sum4b(sum4[1], m[1], n[1]);	
+	xor sum4c(sum4[2], m[2], n[2]);
+	xor sum4d(sum4[3], m[3], n[3]);	
+endmodule
+
+
+
+module GFieldAddEight(
+input [0:7] t, 
+input [0:7] u, 
+output [0:7] sum8
+);
+	xor sum8a(sum8[0], t[0], u[0]);
+	xor sum8b(sum8[1], t[1], u[1]);	
+	xor sum8c(sum8[2], t[2], u[2]);
+	xor sum8d(sum8[3], t[3], u[3]);
+	xor sum8e(sum8[4], t[4], u[4]);
+	xor sum8f(sum8[5], t[5], u[5]);	
+	xor sum8g(sum8[6], t[6], u[6]);
+	xor sum8h(sum8[7], t[7], u[7]);		
+endmodule
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////// test benches ///////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
 module GFieledAddOne_test();
@@ -40,14 +86,6 @@ endmodule
 
 
 
-module GFieldAddTwo(
-input [0:1] c, 
-input [0:1] d, 
-output [0:1] sum2
-);
-	xor sum2a(sum2[0], c[0], d[0]);
-	xor sum2b(sum2[1], c[1], d[1]);	
-endmodule
 
 module GFieledAddTwo_test();
 reg [0:1] e; 
@@ -76,16 +114,7 @@ endmodule
 
 
 
-module GFieldAddFour(
-input [0:3] m, 
-input [0:3] n, 
-output [0:3] sum4
-);
-	xor sum4a(sum4[0], m[0], n[0]);
-	xor sum4b(sum4[1], m[1], n[1]);	
-	xor sum4c(sum4[2], m[2], n[2]);
-	xor sum4d(sum4[3], m[3], n[3]);	
-endmodule
+
 
 module GFieldAddFour_test();
 reg [0:3] p; 
@@ -109,24 +138,6 @@ $display("%b | %b | %b ", p, q, r[0:3]);
 $finish;
 end
 */ 
-endmodule
-
-
-
-
-module GFieldAddEight(
-input [0:7] t, 
-input [0:7] u, 
-output [0:7] sum8
-);
-	xor sum8a(sum8[0], t[0], u[0]);
-	xor sum8b(sum8[1], t[1], u[1]);	
-	xor sum8c(sum8[2], t[2], u[2]);
-	xor sum8d(sum8[3], t[3], u[3]);
-	xor sum8e(sum8[4], t[4], u[4]);
-	xor sum8f(sum8[5], t[5], u[5]);	
-	xor sum8g(sum8[6], t[6], u[6]);
-	xor sum8h(sum8[7], t[7], u[7]);		
 endmodule
 
 module GFieledAddEight_test();
