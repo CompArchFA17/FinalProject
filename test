@@ -6,172 +6,23 @@
 :vpi_module "vhdl_sys";
 :vpi_module "v2005_math";
 :vpi_module "va_math";
-S_0x13972b0 .scope module, "testSR" "testSR" 2 75;
+S_0xedecf0 .scope module, "KeyExpansion" "KeyExpansion" 2 1;
  .timescale 0 0;
-v0x13ddfc0_0 .var "clk", 0 0;
-v0x13de090_0 .var "s", 127 0;
-v0x13de160_0 .net "so", 127 0, v0x13dde60_0;  1 drivers
-S_0x13cb5b0 .scope module, "shift" "ShiftRows" 2 80, 2 8 0, S_0x13972b0;
- .timescale 0 0;
-    .port_info 0 /INPUT 128 "inarray"
-    .port_info 1 /INPUT 1 "clk"
-    .port_info 2 /OUTPUT 128 "outarray"
-P_0x13cb730 .param/l "dimension" 0 2 15, +C4<00000000000000000000000000000100>;
-v0x13971e0_0 .net "clk", 0 0, v0x13ddfc0_0;  1 drivers
-v0x13ddc90_0 .var "counter", 1 0;
-v0x13ddd70_0 .net "inarray", 127 0, v0x13de090_0;  1 drivers
-v0x13dde60_0 .var "outarray", 127 0;
-E_0x13cbdc0 .event posedge, v0x13971e0_0;
-    .scope S_0x13cb5b0;
-T_0 ;
-    %pushi/vec4 0, 0, 2;
-    %store/vec4 v0x13ddc90_0, 0, 2;
-    %end;
-    .thread T_0;
-    .scope S_0x13cb5b0;
-T_1 ;
-    %wait E_0x13cbdc0;
-    %load/vec4 v0x13ddc90_0;
-    %addi 1, 0, 2;
-    %store/vec4 v0x13ddc90_0, 0, 2;
-    %load/vec4 v0x13ddc90_0;
-    %pad/u 32;
-    %cmpi/e 1, 0, 32;
-    %jmp/0xz  T_1.0, 4;
-    %load/vec4 v0x13ddd70_0;
-    %parti/s 8, 24, 6;
-    %ix/load 4, 24, 0;
-    %ix/load 5, 0, 0;
-    %flag_set/imm 4, 0;
-    %assign/vec4/off/d v0x13dde60_0, 4, 5;
-    %load/vec4 v0x13ddd70_0;
-    %parti/s 8, 56, 7;
-    %ix/load 4, 56, 0;
-    %ix/load 5, 0, 0;
-    %flag_set/imm 4, 0;
-    %assign/vec4/off/d v0x13dde60_0, 4, 5;
-    %load/vec4 v0x13ddd70_0;
-    %parti/s 8, 88, 8;
-    %ix/load 4, 88, 0;
-    %ix/load 5, 0, 0;
-    %flag_set/imm 4, 0;
-    %assign/vec4/off/d v0x13dde60_0, 4, 5;
-    %load/vec4 v0x13ddd70_0;
-    %parti/s 8, 120, 8;
-    %ix/load 4, 120, 0;
-    %ix/load 5, 0, 0;
-    %flag_set/imm 4, 0;
-    %assign/vec4/off/d v0x13dde60_0, 4, 5;
-    %load/vec4 v0x13ddd70_0;
-    %parti/s 8, 16, 6;
-    %ix/load 4, 48, 0;
-    %ix/load 5, 0, 0;
-    %flag_set/imm 4, 0;
-    %assign/vec4/off/d v0x13dde60_0, 4, 5;
-    %load/vec4 v0x13ddd70_0;
-    %parti/s 8, 48, 7;
-    %ix/load 4, 80, 0;
-    %ix/load 5, 0, 0;
-    %flag_set/imm 4, 0;
-    %assign/vec4/off/d v0x13dde60_0, 4, 5;
-    %load/vec4 v0x13ddd70_0;
-    %parti/s 8, 80, 8;
-    %ix/load 4, 112, 0;
-    %ix/load 5, 0, 0;
-    %flag_set/imm 4, 0;
-    %assign/vec4/off/d v0x13dde60_0, 4, 5;
-    %load/vec4 v0x13ddd70_0;
-    %parti/s 8, 112, 8;
-    %ix/load 4, 16, 0;
-    %ix/load 5, 0, 0;
-    %flag_set/imm 4, 0;
-    %assign/vec4/off/d v0x13dde60_0, 4, 5;
-    %load/vec4 v0x13ddd70_0;
-    %parti/s 8, 8, 5;
-    %ix/load 4, 72, 0;
-    %ix/load 5, 0, 0;
-    %flag_set/imm 4, 0;
-    %assign/vec4/off/d v0x13dde60_0, 4, 5;
-    %load/vec4 v0x13ddd70_0;
-    %parti/s 8, 40, 7;
-    %ix/load 4, 104, 0;
-    %ix/load 5, 0, 0;
-    %flag_set/imm 4, 0;
-    %assign/vec4/off/d v0x13dde60_0, 4, 5;
-    %load/vec4 v0x13ddd70_0;
-    %parti/s 8, 72, 8;
-    %ix/load 4, 8, 0;
-    %ix/load 5, 0, 0;
-    %flag_set/imm 4, 0;
-    %assign/vec4/off/d v0x13dde60_0, 4, 5;
-    %load/vec4 v0x13ddd70_0;
-    %parti/s 8, 104, 8;
-    %ix/load 4, 40, 0;
-    %ix/load 5, 0, 0;
-    %flag_set/imm 4, 0;
-    %assign/vec4/off/d v0x13dde60_0, 4, 5;
-    %load/vec4 v0x13ddd70_0;
-    %parti/s 8, 0, 2;
-    %ix/load 4, 96, 0;
-    %ix/load 5, 0, 0;
-    %flag_set/imm 4, 0;
-    %assign/vec4/off/d v0x13dde60_0, 4, 5;
-    %load/vec4 v0x13ddd70_0;
-    %parti/s 8, 32, 7;
-    %ix/load 4, 0, 0;
-    %ix/load 5, 0, 0;
-    %flag_set/imm 4, 0;
-    %assign/vec4/off/d v0x13dde60_0, 4, 5;
-    %load/vec4 v0x13ddd70_0;
-    %parti/s 8, 64, 8;
-    %ix/load 4, 32, 0;
-    %ix/load 5, 0, 0;
-    %flag_set/imm 4, 0;
-    %assign/vec4/off/d v0x13dde60_0, 4, 5;
-    %load/vec4 v0x13ddd70_0;
-    %parti/s 8, 96, 8;
-    %ix/load 4, 64, 0;
-    %ix/load 5, 0, 0;
-    %flag_set/imm 4, 0;
-    %assign/vec4/off/d v0x13dde60_0, 4, 5;
-    %jmp T_1.1;
-T_1.0 ;
-    %load/vec4 v0x13ddc90_0;
-    %pad/u 32;
-    %cmpi/e 2, 0, 32;
-    %jmp/0xz  T_1.2, 4;
-    %pushi/vec4 0, 0, 2;
-    %assign/vec4 v0x13ddc90_0, 0;
-T_1.2 ;
-T_1.1 ;
-    %jmp T_1;
-    .thread T_1;
-    .scope S_0x13972b0;
-T_2 ;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x13ddfc0_0, 0, 1;
-    %end;
-    .thread T_2;
-    .scope S_0x13972b0;
-T_3 ;
-    %delay 10, 0;
-    %load/vec4 v0x13ddfc0_0;
-    %nor/r;
-    %store/vec4 v0x13ddfc0_0, 0, 1;
-    %jmp T_3;
-    .thread T_3;
-    .scope S_0x13972b0;
-T_4 ;
-    %vpi_call 2 87 "$display", "ShiftOut | StateIn | X | Y" {0 0 0};
-    %pushi/vec4 45583, 0, 128;
-    %store/vec4 v0x13de090_0, 0, 128;
-    %delay 200, 0;
-    %vpi_call 2 89 "$display", "%b | %b ", v0x13de160_0, v0x13de090_0 {0 0 0};
-    %vpi_call 2 90 "$finish" {0 0 0};
-    %end;
-    .thread T_4;
+    .port_info 0 /INPUT 32 "inarray"
+    .port_info 1 /INPUT 1 "i"
+    .port_info 2 /OUTPUT 32 "outarray"
+v0xedeee0_0 .net *"_s1", 23 0, L_0xf21730;  1 drivers
+v0xf212f0_0 .net *"_s3", 7 0, L_0xf21800;  1 drivers
+o0x7f71db459078 .functor BUFZ 1, C4<z>; HiZ drive
+v0xf213d0_0 .net "i", 0 0, o0x7f71db459078;  0 drivers
+o0x7f71db4590a8 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+v0xf214a0_0 .net "inarray", 31 0, o0x7f71db4590a8;  0 drivers
+v0xf21580_0 .net "outarray", 31 0, L_0xf21920;  1 drivers
+L_0xf21730 .part o0x7f71db4590a8, 0, 24;
+L_0xf21800 .part o0x7f71db4590a8, 24, 8;
+L_0xf21920 .concat [ 8 24 0 0], L_0xf21800, L_0xf21730;
 # The file index is used to find the file name in the following table.
 :file_names 3;
     "N/A";
     "<interactive>";
-    "ShiftRows.v";
+    "KeyExpansion.v";
