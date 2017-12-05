@@ -30,8 +30,26 @@ for (i = 1; i < 5; i = i + 1) begin
 end
 endgenerate
 
-BigXOR8b bxor(outarray[31:24], interimarray2[31:24], rconval);
+reg [23:0] ones = 24'b0;
 
+BigXOR8b bxor(interimarray2[31:24], rconval, outarray[31:24]);
+BigXOR24b bxor24(interimarray2[23:0], ones, outarray[23:0]);
+
+endmodule
+
+module testKE();
+
+reg [31:0] inarray;
+reg[7:0] iterate;
+wire [31:0] outarray;
+
+KeyExpansion key(inarray, iterate, outarray);
+
+initial begin
+
+inarray = 32'b11111111111111111111111111111111; iterate = 8'b1; #40
+$display("%b | %b ", outarray[31:16], inarray[31:24]);
+end
 
 endmodule
 
@@ -45,3 +63,14 @@ output [7:0] Z
 assign Z = V^W;
 
 endmodule
+
+module BigXOR24b(
+input [23:0] V,
+input [23:0] W,
+output [23:0] Z
+);
+
+assign Z = V^W;
+
+endmodule
+

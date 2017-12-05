@@ -22,8 +22,13 @@ wire [127:0] ARKOut;
 wire [127:0] RoundKey;
 
 
-	AddRoundKey ARKtest(RoundKey, StateMatrix, ARKOut);   
-
+genvar i;
+generate
+	for (i = i; i < 10; i = i + 1) begin
+		AddRoundKey ARKtest(RoundKey, StateMatrix, ARKOut);  
+		SubBytes SBtest(ARKOut, SBOut);
+	end
+endgenerate
 //always @(posedge clk) begin
 
 
