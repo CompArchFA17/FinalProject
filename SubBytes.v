@@ -1,25 +1,18 @@
-`include "RijndaelSbox" // this doesn't exist. Also, what is the appropriate extension for this
+`include "SBoxLookup.v" 
 
 module SubBytes(
-// takes in Rijndael's S-box (does it actually?), ARKOut
-// outputs SBOut, where the input bytes have been confused
-reg [4:4] ARKOut;
-
-wire [4:4] SBOut;
+reg [127:0] ARKOut,
+wire [127:0] SBOut
 
 );
+genvar i;
+generate
+for (i = 1; i < 17; i = i + 1) begin
+	SBoxLookup assignvalues(ARKOut[i, SBOut);
+	
+end
 
-
-// for each entry of ARKOut
-
-// split into Most Significant 4 bits & Least Significant 4 bits
-
-// for 4 most significant bits, that corresponds to the ROW in Rijndael's S-box
-
-// for the 4 least significant bits, that corresponds to the COLUMN in Rijndael's S-box
-
-// That creates the new entry in SBOut
-
+endgenerate
 
 endmodule
 
