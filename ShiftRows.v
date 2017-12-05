@@ -52,6 +52,7 @@ end
 
 endmodule
 
+/*
 module testSR();
 
 reg [127:0] s;
@@ -71,4 +72,4 @@ $finish;
 end
 
 endmodule
-
+*/

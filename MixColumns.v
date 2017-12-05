@@ -140,7 +140,7 @@ assign B = X^Y;
 assign Z = A^B;
 
 endmodule
-
+/*
 module testMixCol();
 
 reg [7:0] inm2;
@@ -184,7 +184,7 @@ $finish;
 end
 
 endmodule
-
+*/
 
 
 

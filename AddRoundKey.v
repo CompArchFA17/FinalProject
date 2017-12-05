@@ -21,7 +21,7 @@ endgenerate
 
 
 endmodule
-
+/*
 module testARK();
 
 reg [127:0] rk;
@@ -40,4 +40,4 @@ $display("%b | %b | %b", ao, rk, s);
 
 end
 
-endmodule
+endmodule*/

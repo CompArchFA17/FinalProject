@@ -1,5 +1,6 @@
 `include "AddRoundKey.v"
-//`include "SubBytes.v"
+`include "SubBytes.v"
+`include "MixColumns.v"
 `include "ShiftRows.v"
 
 module MainAlgorithm(
@@ -20,53 +21,50 @@ reg [4:0] counter = 4'b0;
 wire [127:0] StateMatrix;
 wire [127:0] ARKOut;
 wire [127:0] RoundKey;
+wire [127:0] SBOut;
+wire [127:0] SROut;
+wire [127:0] MCOut;
+
+//do keyexpansion
 
 
 genvar i;
 generate
-	for (i = i; i < 10; i = i + 1) begin
+	for (i = 1; i < 10; i = i + 1) begin
 		AddRoundKey ARKtest(RoundKey, StateMatrix, ARKOut);  
 		SubBytes SBtest(ARKOut, SBOut);
+		ShiftRows SRtest(SBOut, clk, SROut);
+		MixColumns MCtest(SROut, clk, CipherText);
 	end
 endgenerate
-//always @(posedge clk) begin
 
 
 
-	//counter = counter + 1;
-	
-	// Key Expansion Algorithm goes here
-	//KeyExpansionAlgorithm //outputs new roundkey for this counter. Might need to initialize first roundkey as the secretkey. 
-	/*
-	if (counter > 0 && counter < 10) begin
-		state <= MainRounds;
-	end
-	
-	if (counter == 10) begin
-		state <= FinalRound;
-	end
-	
-
-
-case(state)
-
-	MainRounds: begin
-		// if we do all these things at once, will they all happen at once (in a bad way)?
-		AddRoundKey ARKtest(RoundKey, StateMatrix, ARKOut);   
-		//SubBytes SB();
-		//ShiftRows
-		//MixColumns
-	
-	end
-
-	FinalRound: begin
-		//AddRoundKey // do this with round key for this round
-		//SubBytes
-		//ShiftRows
-	end
-	
-endcase*/
-
-//end 
 endmodule
+
+
+module testMain();
+reg [127:0] SecretKey;
+reg [127:0] PlainText;
+reg clk;
+wire [127:0] CipherText;
+
+initial clk=0;
+always #10 clk=!clk;    // 50MHz Clock  
+
+initial begin
+
+SecretKey = 128'b1; PlainText = 128'b0; #100
+$display("%b", CipherText);
+
+end
+
+endmodule
+
+
+
+
+
+
+
 
