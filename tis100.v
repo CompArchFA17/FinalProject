@@ -17,23 +17,32 @@ endmodule
 //reading: block until dataReady goes high, pulse ackRead
 
 //instructions:
+//NO ARG:
 //NOP
-//MOV
 //SWP
 //SAV
-//ADD
-//SUB
 //NEG
-//JMP
-//JEZ
-//JNZ
-//JGZ
-//JLZ
-//JRO
+
+//1 ARG:
+//ADD : SRC
+//SUB : SRC
+//JMP : LABEL
+//JEZ : LABEL
+//JNZ : LABEL
+//JGZ : LABEL
+//JLZ : LABEL
+//JRO : SRC
+
+//2 ARG:
+//MOV : SRC DST
+
+//SRC : port or ACC or immediate
+//DST : port or ACC
+//LABEL : immediate
 
 //registers:
 //ACC
-//BACK
+//BAK
 
 //ports:
 //LEFT,RIGHT,UP,DOWN
