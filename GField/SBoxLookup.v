@@ -1,14 +1,8 @@
-module SBoxLookup(
-
-input [7:0] in,
-output reg[7:0] out 
-
-); 
-
-//reg [7:0] out;
+module SBoxLookup(in, out); 
+input [7:0] in;
+output [7:0] out;
+reg [7:0] out;
 //wire [7:0] in;
-
-
 
 always @(in)
 case(in)
@@ -291,15 +285,49 @@ case(in)
 	8'b11111011	: out = 00001111; // 0f
 	8'b11111100 : out = 10110000; // b0
 	8'b11111101	: out = 01010100; // 54
-	8'b11111110	: out = 10111011; // bb
+	8'b11111110	: out = 8'b10111011; // bb
 	8'b11111111	: out = 00010110; // 16 // 16th row		
 	
-
+default: out=8'b0; //default 0
 endcase
 
-//assign outnum = out;
-
 endmodule 
+
+module lut(count_out, angle);
+input [2:0] count_out;
+output [11:0] angle;
+reg [11:0] angle;
+
+always @(count_out)
+case (count_out)
+3'b000: angle=12'b001000000000;	//0	45	45
+3'b001: angle=12'b000100101110;	//1	26.54	26.57
+3'b010: angle=12'b000010100000;	//2	14.06	14.036
+3'b011: angle=12'b000001010001;	//3	7.12	7.13
+3'b100: angle=12'b000000101001;	//4	3.604	3.576
+3'b101: angle=12'b000000010100;	//5	1.76	1.79
+3'b110: angle=12'b000000001010;	//6	0.88	0.9
+3'b111: angle=12'b000000000101;	//7	0.44	0.45
+default: angle=12'b001000000000; //default 0
+endcase
+
+endmodule
+
+module testlut();
+reg [2:0] co;
+wire [11:0] a;
+
+lut look(co, a);
+
+initial begin
+co = 3'b010; #20
+$display("%b | %b ", co, a);
+
+co = 3'b111; #20
+$display("%b | %b ", co, a);
+end
+
+endmodule
 
 
 module testSBox();
@@ -311,10 +339,10 @@ SBoxLookup testing(innum, outnum);
 
 initial begin
 
-innum = 8'b11111110; #40
+innum = 8'b11111110; #200
 $display("%b |  00010110| %b ", outnum, innum);
 
-innum = 8'b10100011; #20
+innum = 8'b10100011; #200
 $display("%b | 00001010 | %b", outnum, innum);
 
 innum = 8'b0; #40
