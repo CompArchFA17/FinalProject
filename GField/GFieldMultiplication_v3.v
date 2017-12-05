@@ -1,5 +1,7 @@
 //`include "GFieldAddition.v"
 
+// going off this example 
+
 module GFieldMultiplyFourv3(
 input clk, 
 input [0:7] a, 
@@ -24,7 +26,7 @@ always @(posedge clk) begin
 if (counter == 0) begin
 	assign a2[0:7] = a[0:7];
 	assign b2[0:7] = b[0:7];
-		$display(a2[7]);
+		//$display(a2[7]);
 	counter = counter+1; 
 end 	
 
@@ -49,9 +51,9 @@ if (counter < 9)begin
 			
 	assign b2[0:7] = {1'b0 , b2[0:6]} ;	
 
-	//$display(counter, " ", a,b,  "  ", a2, " ", b2, "   ", product);
+	$display(counter, " ", a,b,  "  ", a2, " ", b2, "   ", product);
 	//$display(a2[0],a2[1],a2[2],a2[3],a2[4],a2[5],a2[6],a2[7]);
-	$display(a2[7]);
+	//$display(a2[7]);
 
 counter = counter+1 ;
 //product <= prod4;
