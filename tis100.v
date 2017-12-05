@@ -48,5 +48,5 @@ endmodule
 //LEFT,RIGHT,UP,DOWN
 
 //pseudo ports:
-//ANY
-//LAST
+//ANY : UP, LEFT, RIGHT, DOWN for write. LEFT, RIGHT, UP, DOWN for read
+//LAST : If no last operation ignored
