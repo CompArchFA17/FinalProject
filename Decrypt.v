@@ -1,4 +1,5 @@
 `include "MixColumns.v"
+`include "ShiftRows.v"
 
 `define TopByte(c) inarray[((c-1)*32+31):(c-1)*32+24]
 `define SecByte(c) inarray[((c-1)*32+23):(c-1)*32+16]
@@ -7,14 +8,25 @@
 
 module Decrypt(
 input [127:0] SecretKey,
-input [127:0] PlainText,
+input [127:0] CipheredText,
 input clk,
-output [127:0] CipherText
+output [127:0] DecryptedText
 );
-//order
-/*
-ShiftRows() // InvShiftRows is the same as ShiftRows
-InvSubBytes()
+
+wire [1407:0] InvStateMatrix;
+wire [1407:0] SRDOut;
+
+assign InvStateMatrix[127:0] = CipheredText;
+
+genvar i; 
+generate
+
+for(i = 2; i < 11; i = i + 1) begin
+	ShiftRows SRD(InvStateMatrix[((128*i)-1):((i-1)*128)], clk, SRDOut[((128*i)-1):((i-1)*128)]); //in, clk, out
+end
+endgenerate
+
+/*InvSubBytes()
 AddRoundKey()
 InvMixColumns() // NOT the same as MixCol
 
