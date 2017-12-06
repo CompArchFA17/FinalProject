@@ -1,5 +1,6 @@
 `include "MixColumns.v"
 `include "ShiftRows.v"
+`include "AddRoundKey.v"
 
 `define TopByte(c) inarray[((c-1)*32+31):(c-1)*32+24]
 `define SecByte(c) inarray[((c-1)*32+23):(c-1)*32+16]
@@ -22,7 +23,12 @@ genvar i;
 generate
 
 for(i = 2; i < 11; i = i + 1) begin
+		KeyExp128 Keytest(RoundKey[((128*(i-1))-1):((i-2)*128)], iterate, RoundKey[((128*i)-1):((i-1)*128)]); // need to make wires for this
+
 	ShiftRows SRD(InvStateMatrix[((128*i)-1):((i-1)*128)], clk, SRDOut[((128*i)-1):((i-1)*128)]); //in, clk, out
+	InvSubBytes SBD(SRDOut[((128*i)-1):((i-1)*128)], SBDOut[((128*i)-1):((i-1)*128)]);
+	
+	
 end
 endgenerate
 
