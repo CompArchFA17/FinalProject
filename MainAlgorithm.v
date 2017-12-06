@@ -9,36 +9,34 @@ input [127:0] SecretKey,
 input [127:0] PlainText,
 input clk,
 output [127:0] CipherText
-
 );
 
-reg [2:0] state;
-localparam KeyExpansion = 3'b000;
-localparam MainRounds = 3'b010;
-localparam FinalRound = 3'b011;
+wire [1279:0] StateMatrix;
+wire [1279:0] ARKOut;
+wire [1279:0] RoundKey;
+wire [1279:0] SBOut;
+wire [1279:0] SROut;
+wire [1279:0] MCOut;
 
-reg [4:0] counter = 4'b0;
-wire [127:0] StateMatrix;
-wire [127:0] ARKOut;
-wire [127:0] RoundKey;
-wire [127:0] SBOut;
-wire [127:0] SROut;
-wire [127:0] MCOut;
+assign StateMatrix[127:0] = PlainText;
+assign RoundKey[127:0] = SecretKey;
 
 //do keyexpansion
 
 
 genvar i;
 generate
-	for (i = 1; i < 10; i = i + 1) begin
-		AddRoundKey ARKtest(RoundKey, StateMatrix, ARKOut);  
-		SubBytes SBtest(ARKOut, SBOut);
-		ShiftRows SRtest(SBOut, clk, SROut);
-		MixColumns MCtest(SROut, clk, CipherText);
+	for (i = 1; i < 2; i = i + 1) begin
+	
+		AddRoundKey ARKtest(RoundKey[((128*i)-1):((i-1)*128)], StateMatrix[((128*i)-1):((i-1)*128)], ARKOut[((128*i)-1):((i-1)*128)]); 
+ 
+		SubBytes SBtest(ARKOut[((128*i)-1):((i-1)*128)], SBOut[((128*i)-1):((i-1)*128)]);
+		ShiftRows SRtest(SBOut[((128*i)-1):((i-1)*128)], clk, SROut[((128*i)-1):((i-1)*128)]);
+		MixColumns MCtest(SROut[((128*i)-1):((i-1)*128)], clk, MCOut[((128*i)-1):((i-1)*128)]);
 	end
 endgenerate
 
-
+assign CipherText = MCOut[127:0];
 
 endmodule
 
@@ -49,14 +47,22 @@ reg [127:0] PlainText;
 reg clk;
 wire [127:0] CipherText;
 
+
+
+MainAlgorithm testall(SecretKey, PlainText, clk, CipherText);
+
 initial clk=0;
 always #10 clk=!clk;    // 50MHz Clock  
 
 initial begin
 
-SecretKey = 128'b1; PlainText = 128'b0; #100
+SecretKey = 128'b1; PlainText = 128'b0; #500000
 $display("%b", CipherText);
 
+SecretKey = 128'b1; PlainText = 128'b01111100011111000100001001011101011000110110001101100011011000110110001101100011011000110110001101100011011000110110001101100011; #500000
+$display("%b", CipherText);
+
+$finish;
 end
 
 endmodule
