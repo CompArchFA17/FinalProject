@@ -5,7 +5,7 @@
 `define OUT(r,c) outarray[(dimension*dimension-1)-((dimension*(c-1))+(r-1))]
 
 module MixColumns(
-input [127:0] inarray, // [7:0] is a two column, four row matrix
+input [127:0] inarray, 
 input clk,
 output [127:0] outarray
 );

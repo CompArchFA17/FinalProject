@@ -2,6 +2,7 @@
 `include "SubBytes.v"
 `include "MixColumns.v"
 `include "ShiftRows.v"
+`include "KeyExpansion.v"
 
 module MainAlgorithm(
 
@@ -18,16 +19,18 @@ wire [1279:0] SBOut;
 wire [1279:0] SROut;
 wire [1279:0] MCOut;
 
+reg [7:0] iterate = 8'b1;
+
+
 assign StateMatrix[127:0] = PlainText;
 assign RoundKey[127:0] = SecretKey;
 
-//do keyexpansion
-
-
 genvar i;
 generate
-	for (i = 1; i < 2; i = i + 1) begin
-	
+	for (i = 1; i <5; i = i + 1) begin
+		//iterate = iterate+1;	
+		KeyExp128 Keytest(SecretKey, iterate, RoundKey[((128*i)-1):((i-1)*128)]);
+		
 		AddRoundKey ARKtest(RoundKey[((128*i)-1):((i-1)*128)], StateMatrix[((128*i)-1):((i-1)*128)], ARKOut[((128*i)-1):((i-1)*128)]); 
  
 		SubBytes SBtest(ARKOut[((128*i)-1):((i-1)*128)], SBOut[((128*i)-1):((i-1)*128)]);

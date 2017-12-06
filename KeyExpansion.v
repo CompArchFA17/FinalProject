@@ -1,5 +1,22 @@
-`include "SBoxLookup.v"
+//`include "SBoxLookup.v"
 `include "RConLookup.v"
+
+module KeyExp128(
+input [127:0] in,
+input [7:0] iterate,
+output [127:0] out
+);
+genvar j;
+generate
+
+for (j = 1; j < 5; j = j+1) begin
+	KeyExpansion column(in[((32*j)-1):(32*(j-1))], iterate, out[((32*j)-1):(32*(j-1))]);
+end
+
+endgenerate
+
+endmodule
+
 
 module KeyExpansion(
 input [31:0] inarray,
