@@ -21,19 +21,23 @@ wire [127:0] RoundBKeyOut;
 wire [127:0] MuxKeyOut; 
 wire [127:0] MuxStateOut;
 
-DFF128 flipflopKey(NewRoundKey, MuxKeyOut, clk); // out, in, clk
-DFF128 flipflopState(NewState, MuxStateOut, clk); // out, in, clk
+wire [7:0] newiterate;
+
+// need to initialize with SecretKey and PlainText
 
 
-wire [7:0] iteration;
 
-FSM controls(clk, Ctrl, iteration);
+DFF flipflopKey(NewRoundKey, MuxKeyOut, clk); // out, in, clk
+DFF flipflopState(NewState, MuxStateOut, clk); // out, in, clk
+
+
+FSM controls(clk, Ctrl, newiterate);
 
 mux RKmux(Ctrl, RoundAKeyOut, RoundBKeyOut, MuxKeyOut); // control, inA, inB, out
 mux SMmux(Ctrl, RoundAStateOut, RoundBStateOut, NewState);
 
-RoundA options1_9(MuxKeyOut, MuxStateOut, iteration, RoundAKeyOut, RoundAStateOut);
-RoundB option10(MuxKeyOut, MuxStateOut, iteration, RoundBKeyOut, RoundBStateOut);
+RoundA options1_9(NewRoundKey, NewState, newiterate, RoundAKeyOut, RoundAStateOut);
+RoundB option10(NewRoundKey, NewState, newiterate, RoundBKeyOut, RoundBStateOut);
 
 assign CipherText = MuxStateOut;
 
