@@ -8,15 +8,15 @@
 module ShiftRows (
 
 input [127:0] inarray,
-input clk,
-output reg [127:0] outarray
+//input clk,
+output [127:0] outarray
 
 );
 parameter dimension = 4;
 reg X;
 reg Y;
 reg [1:0] counter = 2'b0;
-
+/*
 always @(posedge clk) begin
 	counter = counter + 1;
 	
@@ -49,6 +49,30 @@ always @(posedge clk) begin
 	end
 
 end
+*/
+
+		assign `OUT(3, 0) = `STATE(3, 0) ;
+		assign `OUT(3, 8) = `STATE(3, 8) ;
+		assign `OUT(3, 16) = `STATE(3, 16) ;
+		assign `OUT(3, 24) = `STATE(3, 24) ;
+		
+		assign `OUT(2, 8) = `STATE(2, 0) ;
+		assign `OUT(2, 16) = `STATE(2, 8) ;
+		assign `OUT(2, 24) = `STATE(2, 16) ;
+		assign `OUT(2, 0) = `STATE(2, 24) ;
+		
+		assign `OUT(1, 16) = `STATE(1, 0) ;
+		assign `OUT(1, 24) = `STATE(1, 8) ;
+		assign `OUT(1, 0) = `STATE(1, 16) ;
+		assign `OUT(1, 8) = `STATE(1, 24) ;		
+		
+		
+		assign `OUT(0, 24) = `STATE(0, 0) ;
+		assign `OUT(0, 0) = `STATE(0, 8) ;
+		assign `OUT(0, 8) = `STATE(0, 16) ;
+		assign `OUT(0, 16) = `STATE(0, 24) ;	
+		
+
 
 endmodule
 
@@ -67,7 +91,7 @@ initial begin
 
 $display("ShiftOut | StateIn | X | Y");
 s = 32'b1011001000001111; #200
-$display("%b | %b ", so, s); // clearly our indexing is messed up, but we should be able to get these values into 
+$display("%b | %b ", so, s); 
 $finish;
 end
 

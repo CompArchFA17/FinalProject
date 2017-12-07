@@ -6,7 +6,7 @@
 
 module MixColumns(
 input [127:0] inarray, 
-input clk,
+//input clk,
 output [127:0] outarray
 );
 parameter length = 32;
@@ -83,7 +83,7 @@ endmodule
 
 module Mult2(
 input [7:0] inmult2,
-input clk,
+//input clk,
 output reg [7:0] outmult2
 );
 
@@ -92,7 +92,7 @@ reg [7:0] shiftedin;
 reg [7:0] oneB = 8'b00011011;
 reg [1:0] counter = 2'b0;
 
-always @(posedge clk) begin
+always @(inmult2) begin
 counter = counter + 1;
 
 	if (counter == 1) begin
@@ -114,7 +114,7 @@ endmodule
 
 module Mult3(
 input[7:0] inmult3,
-input clk,
+//input clk,
 output [7:0] outmult3
 );
 wire [7:0] shiftedin3;

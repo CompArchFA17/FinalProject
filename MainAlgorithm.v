@@ -1,8 +1,4 @@
-`include "AddRoundKey.v"
-`include "SubBytes.v"
-`include "MixColumns.v"
-`include "ShiftRows.v"
-`include "KeyExpansion.v"
+
 
 module MainAlgorithm(
 
