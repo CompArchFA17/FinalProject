@@ -1,7 +1,7 @@
 all: arithmetic dot matrixmultiplication
 
 arithmetic: arithmetic.v arithmetic.t.v
-	iverilog -Wall -o aritmetic arithmetic.t.v
+	iverilog -Wall -o arithmetic arithmetic.t.v
 
 dot: dot.v dot.t.v arithmetic
 	iverilog -Wall -o dot dot.t.v
