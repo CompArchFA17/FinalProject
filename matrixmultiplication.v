@@ -1,4 +1,4 @@
-"""
+/*
 Multiply two square 3x3 matrices.
 Represents the operation A * B = C
 Inputs: 
@@ -10,7 +10,7 @@ Parameters:
 	- RESENTRY_SIZE is the size of each individual entry in the result C.
 	- VECTOR_SIZE is the size of each row vector in A and B.
 	- RESVECTOR_SIZE is the size of each row vector in the result C.
-"""
+*/
 
 `include "dot.v"
 

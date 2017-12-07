@@ -1,4 +1,6 @@
-"""Test bench for the 3 dimensional vector dot product."""
+/*
+Test bench for the 3 dimensional vector dot product.
+*/
 
 `include "dot.v"
 

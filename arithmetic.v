@@ -1,4 +1,4 @@
-"""
+/*
 Performs a scalar multiplication on two numbers.
 Represents the operation a * b = c.
 Inputs: 
@@ -8,7 +8,7 @@ Outputs:
 Parameters:
 	- ENTRY_SIZE is the size of a and b
 	- RESENTRY_SIZE is the size of result
-"""
+*/
 module scalar_multiplication 
 #(
 	parameter ENTRY_SIZE = 5,

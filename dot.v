@@ -1,4 +1,4 @@
-"""
+/*
 Perform the dot product on two 3 dimensional vectors.
 Represents the operation dot(a, b) = c
 Inputs: 
@@ -8,7 +8,7 @@ Outputs:
 Parameters: 
 	- ENTRY_SIZE is the size of each individual entry of a and b.
 	- RESENTRY_SIZE is the size of the product c.
-"""
+*/
 
 `include "arithmetic.v"
 

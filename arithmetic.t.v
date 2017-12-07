@@ -1,4 +1,6 @@
-"""Test bench for the scalar multiplication module"""
+/*
+Test bench for the scalar multiplication module
+*/
 
 `include "arithmetic.v"
 module scalar_multiplication_TEST();

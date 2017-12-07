@@ -1,4 +1,6 @@
-"""Test bench for the 3x3 matrix multiplication module."""
+/*
+Test bench for the 3x3 matrix multiplication module.
+*/
 
 `include "matrixmultiplication.v"
 
