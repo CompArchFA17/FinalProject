@@ -1,8 +1,5 @@
-`include "AddRoundKey.v"
-`include "SubBytes.v"
-`include "MixColumns.v"
-`include "ShiftRows.v"
-`include "KeyExpansion.v"
+`include "RoundA.v"
+`include "decoder.v"
 
 module Encrypt(
 input [127:0] SecretKey, 
@@ -12,52 +9,29 @@ output [127:0] CipherText
 
 );
 
-reg [127:0] StateMatrix;
-wire [127:0] ARKOut;
-reg [127:0] RoundKey;
-wire [127:0] SBOut;
-wire [127:0] SROut;
-wire [127:0] MCOut;
-
-reg [5:0] counter = 5'b0;
-/*
-assign StateMatrix = PlainText;
-assign RoundKey = SecretKey;
-*/
-always @ (posedge clk) begin
-
-	counter = counter + 1;
-	
-	if (counter == 0) begin
-		StateMatrix <= PlainText;
-		RoundKey <= SecretKey;
-	end
-
-	else if (counter > 0 && counter < 10) begin
-		KeyExp128 Keytest(RoundKey, counter, MCOut); 
-		
-		AddRoundKey ARKtest(RoundKey, StateMatrix, ARKOut);
-		
-		SubBytes SBtest(ARKOut, SBOut);
-		
-		ShiftRows SRtest(SBOut, SROut);
-		
-		MixColumns MCtest(SROut, MCOut); 
-	end
-	else if (counter == 11) begin
-	/*
-		KeyExp128 Keytest(RoundKey, counter, MCOut); 
-		
-		AddRoundKey ARKtest(RoundKey, StateMatrix, ARKOut);
-		
-		SubBytes SBtest(ARKOut, SBOut);
-		
-		ShiftRows SRtest(SBOut, SROut);*/
-	end
-	else
-		counter <= 0;
+wire [127:0] NewState;
+wire [127:0] NewRoundKey;
+wire Ctrl;
+wire [127:0] RoundAStateOut;
+wire [127:0] RoundBStateOut;
+wire [127:0] RoundAKeyOut;
+wire [127:0] RoundBKeyOut;
 
 
-end
+
+assign NewState = PlainText;
+assign NewRoundKey = SecretKey;
+
+
+wire [7:0] iteration;
+
+FSM controls(clk, Ctrl, iteration);
+
+mux RKmux(Ctrl, RoundAKeyOut, RoundBKeyOut, NewRoundKey);
+mux SMmux(Ctrl, RoundAStateOut, RoundBStateOut, NewState);
+
+RoundA options1_9(NewRoundKey, NewState, iteration, RoundAKeyOut, RoundAStateOut);
+RoundB option10(NewRoundKey, NewState, iteration, RoundBKeyOut, RoundBStateOut);
+
 
 endmodule

@@ -42,9 +42,9 @@ generate
 	for (c = 1; c < 5; c = c + 1) begin
 
 		
-		Mult2 d0b0(inarray[((c-1)*32+31):(c-1)*32+24], clk, d0b0OUT[(32-(8*(c-1))-1):(32-8*c)] );
+		Mult2 d0b0(inarray[((c-1)*32+31):(c-1)*32+24], d0b0OUT[(32-(8*(c-1))-1):(32-8*c)] );
 		
-		Mult3 d0b1(inarray[((c-1)*32+23):(c-1)*32+16], clk, d0b1OUT[(32-(8*(c-1))-1):(32-8*c)]);
+		Mult3 d0b1(inarray[((c-1)*32+23):(c-1)*32+16], d0b1OUT[(32-(8*(c-1))-1):(32-8*c)]);
 		
 		assign d0b2OUT[(32-(8*(c-1))-1):(32-8*c)] = inarray[((c-1)*32+15):(c-1)*32+8];
 		
@@ -53,21 +53,21 @@ generate
 		BigXOR d0xor(d0b0OUT[(32-(8*(c-1))-1):(32-8*c)], d0b1OUT[(32-(8*(c-1))-1):(32-8*c)], d0b2OUT[(32-(8*(c-1))-1):(32-8*c)], d0b3OUT[(32-(8*(c-1))-1):(32-8*c)], d0OUT[(32-(8*(c-1))-1):(32-8*c)]);
 
 		assign d1b0OUT[(32-(8*(c-1))-1):(32-8*c)] = inarray[((c-1)*32+31):(c-1)*32+24];
-		Mult2 d1b1(inarray[((c-1)*32+23):(c-1)*32+16], clk, d1b1OUT[(32-(8*(c-1))-1):(32-8*c)]);
-		Mult3 d1b2(inarray[((c-1)*32+15):(c-1)*32+8], clk, d1b2OUT[(32-(8*(c-1))-1):(32-8*c)]);
+		Mult2 d1b1(inarray[((c-1)*32+23):(c-1)*32+16], d1b1OUT[(32-(8*(c-1))-1):(32-8*c)]);
+		Mult3 d1b2(inarray[((c-1)*32+15):(c-1)*32+8], d1b2OUT[(32-(8*(c-1))-1):(32-8*c)]);
 		assign d1b3OUT[(32-(8*(c-1))-1):(32-8*c)] = inarray[((c-1)*32+7):(c-1)*32];
 		BigXOR d1xor(d1b0OUT[(32-(8*(c-1))-1):(32-8*c)], d1b1OUT[(32-(8*(c-1))-1):(32-8*c)], d1b2OUT[(32-(8*(c-1))-1):(32-8*c)], d1b3OUT[(32-(8*(c-1))-1):(32-8*c)], d1OUT[(32-(8*(c-1))-1):(32-8*c)]);
 		
 		assign d2b0OUT[(32-(8*(c-1))-1):(32-8*c)] = inarray[((c-1)*32+31):(c-1)*32+24];
 		assign d2b1OUT[(32-(8*(c-1))-1):(32-8*c)] = inarray[((c-1)*32+23):(c-1)*32+16];
-		Mult2 d2b2(inarray[((c-1)*32+15):(c-1)*32+8], clk, d2b2OUT[(32-(8*(c-1))-1):(32-8*c)]);
-		Mult3 d2b3(inarray[((c-1)*32+7):(c-1)*32], clk, d2b3OUT[(32-(8*(c-1))-1):(32-8*c)]);
+		Mult2 d2b2(inarray[((c-1)*32+15):(c-1)*32+8], d2b2OUT[(32-(8*(c-1))-1):(32-8*c)]);
+		Mult3 d2b3(inarray[((c-1)*32+7):(c-1)*32], d2b3OUT[(32-(8*(c-1))-1):(32-8*c)]);
 		BigXOR d2xor(d2b0OUT[(32-(8*(c-1))-1):(32-8*c)], d2b1OUT[(32-(8*(c-1))-1):(32-8*c)], d2b2OUT[(32-(8*(c-1))-1):(32-8*c)], d2b3OUT[(32-(8*(c-1))-1):(32-8*c)], d2OUT[(32-(8*(c-1))-1):(32-8*c)]);
 		
-		Mult3 d3b0(inarray[((c-1)*32+31):(c-1)*32+24], clk, d3b0OUT[(32-(8*(c-1))-1):(32-8*c)]);
+		Mult3 d3b0(inarray[((c-1)*32+31):(c-1)*32+24], d3b0OUT[(32-(8*(c-1))-1):(32-8*c)]);
 		assign d3b1OUT[(32-(8*(c-1))-1):(32-8*c)] = inarray[((c-1)*32+23):(c-1)*32+16];
 		assign d3b2OUT[(32-(8*(c-1))-1):(32-8*c)] = inarray[((c-1)*32+15):(c-1)*32+8];
-		Mult2 d3b3(inarray[((c-1)*32+7):(c-1)*32], clk, d3b3OUT[(32-(8*(c-1))-1):(32-8*c)]);
+		Mult2 d3b3(inarray[((c-1)*32+7):(c-1)*32], d3b3OUT[(32-(8*(c-1))-1):(32-8*c)]);
 		BigXOR d3xor(d3b0OUT[(32-(8*(c-1))-1):(32-8*c)], d3b1OUT[(32-(8*(c-1))-1):(32-8*c)], d3b2OUT[(32-(8*(c-1))-1):(32-8*c)], d3b3OUT[(32-(8*(c-1))-1):(32-8*c)], d3OUT[(32-(8*(c-1))-1):(32-8*c)]);
 		
 		//assign d0d1 = {d0OUT, d1OUT};
@@ -84,32 +84,51 @@ endmodule
 module Mult2(
 input [7:0] inmult2,
 //input clk,
-output reg [7:0] outmult2
+output [7:0] outmult2
 );
 
 reg isone;
-reg [7:0] shiftedin;
+wire [7:0] shiftedin;
 reg [7:0] oneB = 8'b00011011;
 reg [1:0] counter = 2'b0;
+wire [7:0] tobeXOR;
 
-always @(inmult2) begin
-counter = counter + 1;
+assign shiftedin = {inmult2[6:0], 1'b0};
+tinydecoder decode(inmult2[7], tobeXOR);
+XOR8b_MC xorb(shiftedin, tobeXOR, outmult2);
 
-	if (counter == 1) begin
-		isone <= inmult2[7];
-		shiftedin <= {inmult2[6:0], 1'b0};
-	end
-	else if (counter == 2) begin
-		if (isone == 1) begin
-			outmult2 <= shiftedin^oneB;
-			//xor(outmult2, 8'b00001111, 8'b11110000);
-		end
-		else
-			outmult2 <= shiftedin;
-	end
-	else if (counter == 3)
-		counter <= 0;
-end
+endmodule
+
+module XOR8b_MC(
+input [7:0] V,
+input [7:0] W,
+output [7:0] Z
+);
+
+assign Z = V^W;
+
+endmodule
+
+module tinydecoder(
+    MSBctrl,
+    Data_out
+    );
+
+    input MSBctrl;
+    output reg [7:0] Data_out; 
+    reg [7:0] oneB = 8'b00011011;
+    reg [7:0] zeros = 8'b0;
+
+    //Whenever there is a change in the Data_in, execute the always block.
+    always @(MSBctrl)
+    case (MSBctrl)   //case statement. Check all the 8 combinations.
+        0 : Data_out = zeros;
+        1 : Data_out = oneB;
+
+        //To make sure that latches are not created create a default value for output.
+        default : Data_out = 8'b00000000; 
+    endcase
+    
 endmodule
 
 module Mult3(
@@ -119,8 +138,8 @@ output [7:0] outmult3
 );
 wire [7:0] shiftedin3;
 
-Mult2 mult2(inmult3, clk, shiftedin3);
-assign outmult3 = shiftedin3^inmult3;
+Mult2 mult2(inmult3, shiftedin3);
+XOR8b_MC xorb3(shiftedin3, inmult3, outmult3);
 
 endmodule
 
