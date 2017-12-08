@@ -4,7 +4,7 @@
 `define FouByte(c) inarray[((c-1)*32+7):(c-1)*32]
 
 
-`include "MixColumns.v"
+//`include "MixColumns.v"
 module InvMixColumns(
 input [127:0] inarray, 
 output [127:0] outarray

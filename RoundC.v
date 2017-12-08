@@ -1,9 +1,11 @@
-`include "AddRoundKey.v"
-`include "InvSubBytes.v"
-`include "ShiftRows.v"
-`include "InvMixColumns.v"
-`include "KeyExpansion.v"
+/*`include "AddRoundKey.v"
 
+`include "ShiftRows.v"
+
+`include "KeyExpansion.v"*/
+
+`include "InvMixColumns.v"
+`include "InvSubBytes.v"
 module RoundC(
 	input [127:0] KeyIn,
 	input [127:0] StateIn,
@@ -57,3 +59,13 @@ assign KeyOut = RoundKey;
 assign StateOut = ARKOut;
 
 endmodule
+
+
+
+
+
+
+
+
+
+

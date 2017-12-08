@@ -15,6 +15,7 @@ endgenerate
 
 endmodule
 
+/*
 module testSubBytes();
 
 reg [127:0] AO;
@@ -29,4 +30,4 @@ $display("%b | 01100011 | %b ", SBO[7:0], AO[7:0]);
 end
 
 
-endmodule
+endmodule*/

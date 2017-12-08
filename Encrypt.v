@@ -46,7 +46,7 @@ smallmux OUTmux(OUTCtrl, MuxStateOut, CipherText);
 
 endmodule
 
-
+/*
 module testEncrypt();
 
 
@@ -70,13 +70,8 @@ $display("%b ", CipherText);
 
 $finish;
 end
-
-
-
-
-
 endmodule
-
+*/
 
 
 
