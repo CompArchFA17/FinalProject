@@ -1,4 +1,4 @@
-/*module decoder(
+module decoder(
     DCtrl,
     RoundA,
     RoundB,
@@ -10,7 +10,7 @@
     output reg [128:0] Data_out; 
 
     //Whenever there is a change in the Data_in, execute the always block.
-    always @(DCtrl)
+    always @(*)
     case (DCtrl)   //case statement. Check all the 8 combinations.
         0 : Data_out = RoundA;
         1 : Data_out = RoundB;
@@ -18,7 +18,8 @@
         default : Data_out = 8'b00000000; 
     endcase
 endmodule
-*/
+
+
 module mux(
     Ctrl,
     RoundA,
@@ -34,14 +35,14 @@ module mux(
     output reg [127:0] Data_out; 
 
     //Whenever there is a change in the Data_in, execute the always block.
-    always @(Ctrl)
+    always @(*)
     case (Ctrl)   //case statement. Check all the 8 combinations.
         00 : Data_out = RoundA;
         01 : Data_out = RoundB;
         10 : Data_out = Initial;
         11 : Data_out = Initial;        
         //To make sure that latches are not created create a default value for output.
-        default : Data_out = 8'b00000000; 
+        default : Data_out = Initial; 
     endcase
 endmodule
 
@@ -57,12 +58,12 @@ module smallmux(
     output reg [127:0] Data_out; 
 
     //Whenever there is a change in the Data_in, execute the always block.
-    always @(Ctrl)
+    always @(*)
     case (Ctrl)   //case statement. Check all the 8 combinations.
         0 : Data_out = zero;
         1 : Data_out = Initial;        
         //To make sure that latches are not created create a default value for output.
-        default : Data_out = 8'b00000000; 
+        default : Data_out = 128'b00000000; 
     endcase
 endmodule
 

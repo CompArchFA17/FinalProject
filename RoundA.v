@@ -98,10 +98,10 @@ initial OUTCtrl = 1'b0;
 always @(posedge clk) begin
 	counter <= counter + 1;
 	iterate <= iterate + 1;
-/*	if (counter == 0) begin
+	if (counter == 0) begin
 		DCtrl <= 2'b10;
 		OUTCtrl = 1'b0;
-	end*/
+	end
 	if (counter > 0 && counter < 10) begin
 		DCtrl <= 2'b00;
 		OUTCtrl = 1'b0;
@@ -111,23 +111,25 @@ always @(posedge clk) begin
 		OUTCtrl = 1'b1;
 	end
 	else if (counter > 10)begin
-		counter <= 0;
+		counter <= 1;
 		DCtrl <= 2'b00;
 		iterate <= 0;
 		OUTCtrl = 1'b0;
 	end
 end
 endmodule
-/*
+/*(
 module testFSM();
 reg clk;
-wire Ctrl;
+wire [1:0]Ctrl;
+wire OUT;
+
 wire [7:0] iterate;
 
 initial clk=0;
 always #10 clk=!clk;
 
-FSM fsmt(clk,Ctrl,iterate);
+FSM fsmt(clk,Ctrl,OUT, iterate);
 
 initial begin
 #245

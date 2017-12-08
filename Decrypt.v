@@ -23,9 +23,6 @@ wire [127:0] MuxStateOut;
 
 wire [7:0] newiterate;
 
-// need to initialize with SecretKey and PlainText
-
-
 
 DFF flipflopKey(NewRoundKey, MuxKeyOut, clk); // out, in, clk
 DFF flipflopState(NewState, MuxStateOut, clk); // out, in, clk

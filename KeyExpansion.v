@@ -62,12 +62,12 @@ KeyExpansion key(inarray, iterate, outarray);
 
 initial begin
 
-inarray = 32'b11111111111111111111111111111111; iterate = 8'b1; #40
-$display("%b | %b ", outarray[31:16], inarray[31:24]);
+inarray = 32'b00101011011111100001010100010110; iterate = 8'b1000; #40
+$display("%b | %b ", outarray, inarray[31:24]);
 end
 
-endmodule*/
-
+endmodule
+*/
 
 module BigXOR8b(
 input [7:0] V,
