@@ -6,7 +6,6 @@
 
 module MixColumns(
 input [127:0] inarray, 
-//input clk,
 output [127:0] outarray
 );
 parameter length = 32;
@@ -83,7 +82,6 @@ endmodule
 
 module Mult2(
 input [7:0] inmult2,
-//input clk,
 output [7:0] outmult2
 );
 
@@ -133,7 +131,6 @@ endmodule
 
 module Mult3(
 input[7:0] inmult3,
-//input clk,
 output [7:0] outmult3
 );
 wire [7:0] shiftedin3;

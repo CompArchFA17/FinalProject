@@ -1,4 +1,4 @@
-//`include "SBoxLookup.v"
+`include "SBoxLookup.v"
 `include "RConLookup.v"
 
 module KeyExp128(
@@ -36,8 +36,6 @@ assign MSB = inarray[23:0];
 assign interimarray = {MSB, LSB}; // rotate
 
 RConLookup lookupr(iterate, rconval); // get rconval
-
-
 
 genvar i; 
 generate

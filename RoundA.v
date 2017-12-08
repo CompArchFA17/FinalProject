@@ -83,7 +83,8 @@ endmodule
 
 module FSM(
 input clk,
-output reg DCtrl, 
+output reg [1:0] DCtrl, 
+output reg OUTCtrl,
 output reg [7:0] iterate
 );
 
@@ -91,21 +92,29 @@ reg [7:0] counter; // counting is a little messed up (which is only problematic 
 
 initial counter = 8'b0;
 initial iterate = 8'b0;
-initial DCtrl = 0;
+initial DCtrl = 2'b10;
+initial OUTCtrl = 1'b0;
 
 always @(posedge clk) begin
 	counter <= counter + 1;
 	iterate <= iterate + 1;
-	if (counter > 0 && counter < 9) begin
-		DCtrl <= 0;
+/*	if (counter == 0) begin
+		DCtrl <= 2'b10;
+		OUTCtrl = 1'b0;
+	end*/
+	if (counter > 0 && counter < 10) begin
+		DCtrl <= 2'b00;
+		OUTCtrl = 1'b0;
 	end
-	else if (counter == 9) begin
-		DCtrl <= 1;
+	else if (counter == 10) begin
+		DCtrl <= 2'b01;
+		OUTCtrl = 1'b1;
 	end
-	else if (counter > 9)begin
+	else if (counter > 10)begin
 		counter <= 0;
-		DCtrl <= 0;
+		DCtrl <= 2'b00;
 		iterate <= 0;
+		OUTCtrl = 1'b0;
 	end
 end
 endmodule
