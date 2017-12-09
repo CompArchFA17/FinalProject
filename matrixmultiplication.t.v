@@ -46,7 +46,7 @@ module matrixmultiplication3by3_TEST();
 		if (matrixCv1 !== {{9'd1}, {9'd2}, {9'd3}} || matrixCv2 !== {{9'd2}, {9'd3}, {9'd5}} || matrixCv3 !== {{9'd3}, {9'd1}, {9'd2}}) begin
 			$display("Test failed. Expected: \n%d\t%d\t%d\n%d\t%d\t%d\n%d\t%d\t%d\n Actual: \n%d\t%d\t%d\n%d\t%d\t%d\n%d\t%d\t%d",
 				9'd1, 9'd2, 9'd3, 
-				9'd2, 9'd3, 9'd1,
+				9'd2, 9'd3, 9'd5,
 				9'd3, 9'd1, 9'd2,
 				matrixCv1[26:18], matrixCv1[17:9], matrixCv1[8:0], 
 				matrixCv2[26:18], matrixCv2[17:9], matrixCv2[8:0],
