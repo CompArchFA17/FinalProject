@@ -2,7 +2,7 @@
 The memory where matrices are stored.
 */
 
-// TODO (arianaolson419): Allow multiple data access in some fashion.
+// TODO (arianaolson419): Allow multiple data access in some fashion. 
 module memory
 #(
     parameter addresswidth  = 32,
