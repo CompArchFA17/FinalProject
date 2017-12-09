@@ -62,8 +62,15 @@ endmodule
 
 
 
+module RoundF(	
+	input [127:0] KeyIn,
+	input [127:0] StateIn,
+	output [127:0] StateOut
+);
 
+AddRoundKey ARKtest(StateIn, KeyIn, StateOut); // takes in In, Key, gives
 
+endmodule
 
 
 

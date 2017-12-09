@@ -20,8 +20,6 @@ wire [127:0] SROut;
 wire [127:0] MCOut;
 
 KeyExp128 Keytest(KeyIn, iterate, RoundKey);  // takes in old KeyIn, gives out new Key
-
-AddRoundKey ARKtest(StateIn, RoundKey, ARKOut); // takes in In, Key, gives out Out
 		
 SubBytes SBtest(ARKOut, SBOut);
 
@@ -29,8 +27,21 @@ ShiftRows SRtest(SBOut, SROut);
 		
 MixColumns MCtest(SROut, MCOut); 
 
+AddRoundKey ARKtest(StateIn, RoundKey, ARKOut); // takes in In, Key, gives out Out
+
+
 assign KeyOut = RoundKey;
-assign StateOut = MCOut;
+assign StateOut = ARKOut;
+
+endmodule
+
+module RoundE(
+	input [127:0] KeyIn,
+	input [127:0] StateIn,
+	output [127:0] StateOut
+);
+
+AddRoundKey ARKtest(StateIn, KeyIn, StateOut); // takes in In, Key, gives
 
 endmodule
 /*
@@ -99,9 +110,13 @@ always @(posedge clk) begin
 	counter <= counter + 1;
 	iterate <= iterate + 1;
 	if (counter == 0) begin
-		DCtrl <= 2'b10;
+		DCtrl <= 2'b11;
 		OUTCtrl = 1'b0;
 	end
+/*	if (counter == 1) begin
+		DCtrl <= 2'b11;
+		OUTCtrl = 1'b0;
+	end	*/
 	if (counter > 0 && counter < 10) begin
 		DCtrl <= 2'b00;
 		OUTCtrl = 1'b0;

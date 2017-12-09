@@ -16,6 +16,7 @@ wire [1:0] Ctrl;
 wire OUTCtrl;
 wire [127:0] RoundAStateOut;
 wire [127:0] RoundBStateOut;
+wire [127:0] RoundEStateOut;
 wire [127:0] RoundAKeyOut;
 wire [127:0] RoundBKeyOut;
 
@@ -24,21 +25,18 @@ wire [127:0] MuxStateOut;
 
 wire [7:0] newiterate;
 
-// need to initialize with SecretKey and PlainText
-
-
-
 DFF flipflopKey(NewRoundKey, MuxKeyOut, clk); // out, in, clk
 DFF flipflopState(NewState, MuxStateOut, clk); // out, in, clk
 
 
 FSM controls(clk, Ctrl, OUTCtrl, newiterate);
 
-mux RKmux(Ctrl, RoundAKeyOut, RoundBKeyOut, SecretKey, MuxKeyOut); // control, inA, inB, initial key, out
-mux SMmux(Ctrl, RoundAStateOut, RoundBStateOut, PlainText, MuxStateOut);
+mux RKmux(Ctrl, RoundAKeyOut, RoundBKeyOut, SecretKey, SecretKey, MuxKeyOut); // control, inA, inB, initial key, out
+mux SMmux(Ctrl, RoundAStateOut, RoundBStateOut, PlainText, RoundEStateOut, MuxStateOut);
 
 RoundA options1_9(NewRoundKey, NewState, newiterate, RoundAKeyOut, RoundAStateOut);
 RoundB option10(NewRoundKey, NewState, newiterate, RoundBKeyOut, RoundBStateOut);
+RoundE option0(NewRoundKey, NewState, RoundEStateOut);//key, state in, state out
 
 smallmux OUTmux(OUTCtrl, MuxStateOut, CipherText);
 
