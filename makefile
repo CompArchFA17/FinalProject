@@ -1,4 +1,4 @@
-all: arithmetic dot matrixmultiplication data_mem load_block
+all: arithmetic dot matrixmultiplication data_mem load_block add_block
 
 arithmetic: arithmetic.v arithmetic.t.v
 	iverilog -Wall -o arithmetic arithmetic.t.v
@@ -14,3 +14,6 @@ data_mem: data_memory.v data_memory.t.v
 
 load_block: load_block.v load_block.t.v data_mem
 	iverilog -Wall -o load_block load_block.t.v
+
+add_block: add3by3.v add3by3.t.v
+	iverilog -Wall -o add_block add3by3.t.v
