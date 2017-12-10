@@ -201,6 +201,4 @@ module multiplier_network
 		.ENTRY_SIZE(ENTRY_SIZE)) chooseres (.res_sel (res_sel), .AEplusBG(`AEBG), .AFplusBH(`AFBH),
 		.CEplusDG(`CEDG), .CFplusDH(`CFDH), .result  (res)
 	);
-
-
 endmodule // multiplier_network
