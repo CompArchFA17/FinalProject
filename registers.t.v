@@ -2,9 +2,7 @@
 
 module test_registers();
 
-reg clk, wrenable;
-reg[5:0] n_in, m_in, p_in;
-wire[5:0] n_out, m_out, p_out;
+reg clk, a_wrenable, b_wrenable, c_wrenable;
 reg[4:0] a0_in, a1_in, a2_in, a3_in, a4_in, a5_in, a6_in, a7_in, a8_in;
 reg[4:0] b0_in, b1_in, b2_in, b3_in, b4_in, b5_in, b6_in, b7_in, b8_in;
 reg[4:0] c0_in, c1_in, c2_in, c3_in, c4_in, c5_in, c6_in, c7_in, c8_in;
@@ -12,15 +10,19 @@ wire[4:0] a0_out, a1_out, a2_out, a3_out, a4_out, a5_out, a6_out, a7_out, a8_out
 wire[4:0] b0_out, b1_out, b2_out, b3_out, b4_out, b5_out, b6_out, b7_out, b8_out;
 wire[4:0] c0_out, c1_out, c2_out, c3_out, c4_out, c5_out, c6_out, c7_out, c8_out;
 
-regfile dut (wrenable, n_in, m_in, p_in,
-     n_out, m_out, p_out,
-     a0_in, a1_in, a2_in, a3_in, a4_in, a5_in, a6_in, a7_in, a8_in,
-     b0_in, b1_in, b2_in, b3_in, b4_in, b5_in, b6_in, b7_in, b8_in,
-     c0_in, c1_in, c2_in, c3_in, c4_in, c5_in, c6_in, c7_in, c8_in,
-     a0_out, a1_out, a2_out, a3_out, a4_out, a5_out, a6_out, a7_out, a8_out,
-     b0_out, b1_out, b2_out, b3_out, b4_out, b5_out, b6_out, b7_out, b8_out,
-     c0_out, c1_out, c2_out, c3_out, c4_out, c5_out, c6_out, c7_out, c8_out,
-     clk);
+regfile #(.width(5)) dut (
+    .a_wrenable(a_wrenable), .b_wrenable(b_wrenable), .c_wrenable(c_wrenable),
+    .a0_in (a0_in), .a1_in (a1_in), .a2_in (a2_in), .a3_in (a3_in), .a4_in (a4_in), .a5_in (a5_in),
+    .a6_in (a6_in), .a7_in (a7_in), .a8_in (a8_in), .b0_in (b0_in), .b1_in (b1_in), .b2_in (b2_in),
+    .b3_in (b3_in), .b4_in (b4_in), .b5_in (b5_in), .b6_in (b6_in), .b7_in (b7_in), .b8_in (b8_in),
+    .c0_in (c0_in), .c1_in (c1_in), .c2_in (c2_in), .c3_in (c3_in), .c4_in (c4_in), .c5_in (c5_in),
+    .c6_in (c6_in), .c7_in (c7_in), .c8_in (c8_in), .a0_out (a0_out), .a1_out (a1_out), .a2_out (a2_out),
+    .a3_out (a3_out), .a4_out (a4_out), .a5_out (a5_out), .a6_out (a6_out), .a7_out (a7_out), .a8_out (a8_out),
+    .b0_out (b0_out), .b1_out (b1_out), .b2_out (b2_out), .b3_out (b3_out), .b4_out (b4_out), .b5_out (b5_out),
+    .b6_out (b6_out), .b7_out (b7_out), .b8_out (b8_out), .c0_out (c0_out), .c1_out (c1_out), .c2_out (c2_out),
+    .c3_out (c3_out), .c4_out (c4_out), .c5_out (c5_out), .c6_out (c6_out), .c7_out (c7_out), .c8_out (c8_out),
+    .clk  (clk)
+);
 
 genvar i;
 initial begin
@@ -52,7 +54,9 @@ c5_in = 5'd23;
 c6_in = 5'd24;
 c7_in = 5'd25;
 c8_in = 5'd26;
-wrenable = 0;
+a_wrenable = 0;
+b_wrenable = 0;
+c_wrenable = 0;
 
 clk = 0; #5
 clk = 1; #5
@@ -68,7 +72,9 @@ c5_out !== 5'd0 || c6_out !== 5'd0 || c7_out !== 5'd0 || c8_out !== 5'd0)
 
    $display("wrote to registers when wrenable was 0");
 
-wrenable = 1;
+a_wrenable = 1;
+b_wrenable = 1;
+c_wrenable = 1;
 
 clk = 0; #5
 clk = 1; #5
