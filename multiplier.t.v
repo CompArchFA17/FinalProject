@@ -26,7 +26,7 @@ module multiplier_TEST();
 	); 
 
 	initial begin
-		$dumpfile("multipliler.vcd");
+		$dumpfile("multiplier.vcd");
 		$dumpvars();
 		clk = 0; a_wrenable = 0; b_wrenable = 0;
 
