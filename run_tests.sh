@@ -13,3 +13,5 @@ echo "Running dot tests..."
 ./dot
 echo "Running matmul tests..."
 ./matmul
+echo "Running register tests..."
+./registers
