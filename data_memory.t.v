@@ -39,14 +39,15 @@ module memory_TEST();
 		dataIn7 = dataIn0; dataIn8 = dataIn0;
 
 		addr0 = 32'd0;
-		addr1 = addr0 + ADDRESS_WIDTH;
-		addr2 = addr1 + ADDRESS_WIDTH;
-		addr3 = addr2 + ADDRESS_WIDTH;
-		addr4 = addr3 + ADDRESS_WIDTH;
-		addr5 = addr4 + ADDRESS_WIDTH;
-		addr6 = addr5 + ADDRESS_WIDTH;
-		addr7 = addr6 + ADDRESS_WIDTH;
-		addr8 = addr7 + ADDRESS_WIDTH;
+		addr1 = addr0 + (32'd1 << 2);
+		addr2 = addr1 + (32'd1 << 2);
+		addr3 = addr2 + (32'd1 << 2);
+		addr4 = addr3 + (32'd1 << 2);
+		addr5 = addr4 + (32'd1 << 2);
+		addr6 = addr5 + (32'd1 << 2);
+		addr7 = addr6 + (32'd1 << 2);
+		addr8 = addr7 + (32'd1 << 2);
+
 		// Test Case 1: Do not write if writeEnable is low.
 		writeEnable = 0; dataIn0 = 5'h1f;
 		#20
@@ -77,37 +78,43 @@ module memory_TEST();
 			$display("Test case 2 failed: there is no memory at the given address.");
 		end
 
-		if (dut.memory[0] !== dataIn0) begin
-			$display("Test case 2 failed: the memory contained at the given address does not match dataIn");
+		if (data0 !== dataIn0) begin
+			$display("Test case 2 failed: memory was not written to when writeEnable was true.");
 		end
 
-		// if (data0 !== dataIn0) begin
-		// 	$display("Test case 2 failed: memory was not written to when writeEnable was true.");
-		// end
 		if (dut.memory[0] !== dataIn0) begin
 			$display("Test case 2 failed: the memory contained at the given address does not match dataIn0");
 		end
+		
 		if (dut.memory[1] !== dataIn1) begin
+			$display("dut.memory: %b, dataIn: %b", dut.memory[8], dataIn1);
 			$display("Test case 2 failed: the memory contained at the given address does not match dataIn1");
 		end
+		
 		if (dut.memory[2] !== dataIn2) begin
 			$display("Test case 2 failed: the memory contained at the given address does not match dataIn2");
 		end
+		
 		if (dut.memory[3] !== dataIn3) begin
 			$display("Test case 2 failed: the memory contained at the given address does not match dataIn3");
 		end
+		
 		if (dut.memory[4] !== dataIn4) begin
 			$display("Test case 2 failed: the memory contained at the given address does not match dataIn4");
 		end
+		
 		if (dut.memory[5] !== dataIn5) begin
 			$display("Test case 2 failed: the memory contained at the given address does not match dataIn5");
 		end
+		
 		if (dut.memory[6] !== dataIn6) begin
 			$display("Test case 2 failed: the memory contained at the given address does not match dataIn6");
 		end
+		
 		if (dut.memory[7] !== dataIn7) begin
 			$display("Test case 2 failed: the memory contained at the given address does not match dataIn7");
 		end
+		
 		if (dut.memory[8] !== dataIn8) begin
 			$display("Test case 2 failed: the memory contained at the given address does not match dataIn8");
 		end
