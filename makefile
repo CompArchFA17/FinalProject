@@ -14,3 +14,6 @@ data_mem: data_memory.v data_memory.t.v
 
 load_block: load_block.v load_block.t.v data_mem
 	iverilog -Wall -o load_block load_block.t.v
+
+fsm: fsm.v fsm.t.v
+	iverilog -Wall -o fsm fsm.t.v
