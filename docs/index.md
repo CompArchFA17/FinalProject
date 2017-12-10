@@ -6,12 +6,12 @@ For our Computer Architecture final project, we designed computer hardware to mu
 
 ## Project Motivation and Background
 
-After studying single cycle MIPS CPUs, we were interested in other computing architectures with different strengths and weakensses. We first looked at GPUs, which were originally designed specifically for graphics, but have recently been generalized to be fully functional CPUs. Graphics opperations are essentially a subset of matrix opperations (where the :With this added functionallity, GPUs have become increasingly usefull for machine learning algorithms and general parallel computing. Mostly, computations on matricies are complex and time intensive on normal CPUs, but the extreme parallelization of computations in a GPU makes it much more efficient at these opperations. We wanted to explore this increase in efficiency by making some purpose built hardware for matrix multiplication.
+After studying single cycle MIPS CPUs, we were interested in other computing architectures with different strengths and weakenesses. We first looked at GPUs, which were originally designed specifically for graphics, but have recently been generalized to be fully functional CPUs. Graphics opperations are essentially a subset of matrix opperations (where the :With this added functionallity, GPUs have become increasingly usefull for machine learning algorithms and general parallel computing. Mostly, computations on matricies are complex and time intensive on normal CPUs, but the extreme parallelization of computations in a GPU makes it much more efficient at these opperations. We wanted to explore this increase in efficiency by making some purpose built hardware for matrix multiplication.
 
 ## Results
 
 ## Similarities to Graphics
 
-As we mentioned before, graphics opperations are essentially a subset of matrix opperations. 
+As we mentioned before, graphics operations are essentially a subset of matrix opperations. 
 
 ## Appendix
