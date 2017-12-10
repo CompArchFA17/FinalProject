@@ -1,6 +1,6 @@
 // This is the memory that should be used in the load block test
 
-// 3 by 3 identity
+// 3 by 3 identity at address 0
 0_0001
 0_0000
 0_0000
@@ -11,7 +11,7 @@
 0_0000
 0_0001
 
-// 4 by 4 increasing
+// 4 by 4 increasing at address 9
 0_0000
 0_0001
 0_0010
@@ -29,7 +29,7 @@
 0_1110
 0_1111
 
-// 7 by 3 decreasing
+// 7 by 3 decreasing at address 25
 1_1111
 1_1110
 1_1101
@@ -52,7 +52,7 @@
 0_1100
 0_1011
 
-// Extra memory
+// Extra memory at address 46
 0_0000
 0_0000
 0_0000
