@@ -1,5 +1,5 @@
 
-all: arithmetic dot matrixmultiplication data_mem load_block add_block multiplier registers multiplexer fsm prog_mem controller
+all: arithmetic dot matrixmultiplication data_mem load_block add_block multiplier registers multiplexer fsm prog_mem controller multiplier_network
 
 arithmetic: arithmetic.v arithmetic.t.v
 	iverilog -Wall -o arithmetic arithmetic.t.v
@@ -36,3 +36,6 @@ prog_mem: prog_memory.v prog_memory.t.v
 
 controller: controller.v controller.t.v prog_mem fsm
 	iverilog -Wall -o controller controller.t.v
+
+multiplier_network: multiplier_network.v multiplier_network.t.v multiplexer multiplier add3by3
+	iverilog -Wall -o multiplier_network multiplier_network.t.v
