@@ -15,3 +15,5 @@ echo "Running matmul tests..."
 ./matmul
 echo "Running load block tests..."
 ./load_block
+echo "running fsm tests..."
+./fsm

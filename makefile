@@ -17,3 +17,6 @@ load_block: load_block.v load_block.t.v data_mem
 
 add_block: add3by3.v add3by3.t.v
 	iverilog -Wall -o add_block add3by3.t.v
+
+fsm: fsm.v fsm.t.v
+	iverilog -Wall -o fsm fsm.t.v
