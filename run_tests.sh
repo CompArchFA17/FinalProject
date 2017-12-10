@@ -17,3 +17,7 @@ echo "Running load block tests..."
 ./load_block
 echo "running fsm tests..."
 ./fsm
+echo "running program memory tests..."
+./prog_mem
+echo "running controller tests..."
+./controller
