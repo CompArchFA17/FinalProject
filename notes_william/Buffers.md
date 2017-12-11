@@ -81,6 +81,11 @@ This buffer isn't as explicitly important as the other buffers, because dependin
 It’s also super important to clear the buffers when needed, if not then some weird visuals can happen.  For example, while I’m not sure if this is why it happens, one could imagine that if you don’t clear the color or depth buffers, one would get a scene that appears to leave a trail of moving objects.  For example, I’m sure some of y'all have experienced when you move your browser and the computer updates it’s position but doesn’t clear its old position, leaving a trail of browser on your screen.
 
 
+## Closing Thoughts
+
+It is important to note that this list of useful graphics buffers is not all encompassing.
+
+
 # Resources
 
 OpenGL book explanation on frame buffers can be found [here](http://www.glprogramming.com/red/chapter10.html).
