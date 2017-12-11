@@ -36,7 +36,7 @@ assign StateOut = ARKOut;
 endmodule
 
 
-/*
+
 module testA();
 
 reg [127:0] KI;
@@ -48,13 +48,14 @@ wire [127:0] STO;
 RoundA round(KI, SI, it, KO, STO);
 initial begin
 
-KI = 128'b1010; SI = 128'b1100; it = 8'b10; #40
+KI = 128'h2A; SI = 128'h19; it = 8'b10; #400
+$display("This is RoundA");
 $display("%b | %b ", KI[31:0], KO [31:0]);
-$display("%b | %b ", SI[31:0], STO[31:0]);
+$display("%b | %b ", SI[31:0], STO);
 
 end
 
-endmodule*/
+endmodule
 
 
 

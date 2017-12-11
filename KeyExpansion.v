@@ -1,4 +1,4 @@
-//`include "SBoxLookup.v"
+`include "SBoxLookup.v"
 `include "RConLookup.v"
 
 module KeyExp128(
@@ -54,15 +54,15 @@ endmodule
 
 module testKE();
 
-reg [31:0] inarray;
+reg [127:0] inarray;
 reg[7:0] iterate;
-wire [31:0] outarray;
+wire [127:0] outarray;
 
-KeyExpansion key(inarray, iterate, outarray);
-
+//KeyExpansion key(inarray, iterate, outarray);
+KeyExp128 expand(inarray, iterate, outarray);
 initial begin
 
-inarray = 32'b00101011011111100001010100010110; iterate = 8'b1000; #40
+inarray = 128'h2A; iterate = 8'b1; #40
 $display("%b | %b ", outarray, inarray);
 end
 
