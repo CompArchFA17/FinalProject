@@ -6,7 +6,8 @@ module Decrypt(
 input [127:0] SecretKey,
 input [127:0] CipheredText,
 input clk,
-output [127:0] DecryptedText
+output [127:0] DecryptedText,
+output [127:0] OriginalKey
 );
 
 wire [127:0] NewState;
@@ -29,7 +30,7 @@ DFF flipflopKey(NewRoundKey, MuxKeyOut, clk); // out, in, clk
 DFF flipflopState(NewState, MuxStateOut, clk); // out, in, clk
 
 
-FSM controls(clk, Ctrl, OUTCtrl, newiterate);
+InvFSM controls(clk, Ctrl, OUTCtrl, newiterate);
 
 mux RKmux(Ctrl, RoundAKeyOut, RoundBKeyOut, SecretKey, SecretKey, MuxKeyOut); // control, inA, inB, initial key, out
 mux SMmux(Ctrl, RoundAStateOut, RoundBStateOut, CipheredText, RoundFStateOut, MuxStateOut);
@@ -40,6 +41,7 @@ RoundF Invoption0(NewRoundKey, NewState, RoundFStateOut);
 
 
 smallmux OUTmux(OUTCtrl, MuxStateOut, DecryptedText);
+smallmux OUTkeymux(OUTCtrl, MuxKeyOut, OriginalKey);
 
 endmodule
 
@@ -50,8 +52,9 @@ reg [127:0] SecretKey;
 reg [127:0] CipherText;
 reg clk;
 wire [127:0] PlainText;
+wire [127:0] OrigKey;
 
-Encrypt testing(SecretKey, CipherText, clk, PlainText);
+Decrypt testing(SecretKey, CipherText, clk, PlainText, OrigKey);
 
 initial clk=0;
 always #10 clk=!clk;
@@ -61,7 +64,7 @@ initial begin
 $dumpfile("decrypt.vcd");
 $dumpvars();
 
-SecretKey = 128'b101010; CipherText = 128'b1010101010; #280
+SecretKey = 128'h7715D9597715D9597715D9597731D959; CipherText = 128'h23ECBE2723EC4DAF2323BEAF5BC8BEAF; #500
 $display("%b ", PlainText);
 
 $finish;

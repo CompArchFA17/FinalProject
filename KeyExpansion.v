@@ -45,10 +45,10 @@ for (i = 1; i < 5; i = i + 1) begin
 end
 endgenerate
 
-reg [23:0] ones = 24'b0;
+reg [23:0] zeros = 24'b0;
 
 BigXOR8b bxor(interimarray2[31:24], rconval, outarray[31:24]);
-BigXOR24b bxor24(interimarray2[23:0], ones, outarray[23:0]);
+BigXOR24b bxor24(interimarray2[23:0], zeros, outarray[23:0]);
 
 endmodule
 /*

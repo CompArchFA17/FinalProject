@@ -35,15 +35,7 @@ assign StateOut = ARKOut;
 
 endmodule
 
-module RoundE(
-	input [127:0] KeyIn,
-	input [127:0] StateIn,
-	output [127:0] StateOut
-);
 
-AddRoundKey ARKtest(StateIn, KeyIn, StateOut); // takes in In, Key, gives
-
-endmodule
 /*
 module testA();
 
@@ -81,14 +73,27 @@ wire [127:0] SROut;
 
 KeyExp128 Keytest(KeyIn, iterate, RoundKey);  // takes in old KeyIn, gives out new Key
 
-AddRoundKey ARKtest(StateIn, RoundKey, ARKOut); // takes in In, Key, gives out Out
-		
-SubBytes SBtest(ARKOut, SBOut);
+
+SubBytes SBtest(StateIn, SBOut);
 
 ShiftRows SRtest(SBOut, SROut);
 
+AddRoundKey ARKtest(SROut, RoundKey, ARKOut); // takes in In, Key, gives out Out
+		
+
 assign KeyOut = RoundKey;
-assign StateOut = SROut;
+assign StateOut = ARKOut;
+
+endmodule
+
+module RoundE(
+	input [127:0] KeyIn,
+	input [127:0] StateIn,
+	output [127:0] StateOut
+);
+
+
+AddRoundKey ARKtest(StateIn, KeyIn, StateOut); // takes in In, Key, gives
 
 endmodule
 
@@ -113,10 +118,10 @@ always @(posedge clk) begin
 		DCtrl <= 2'b11;
 		OUTCtrl = 1'b0;
 	end
-/*	if (counter == 1) begin
+	/*if (counter == 1) begin
 		DCtrl <= 2'b11;
 		OUTCtrl = 1'b0;
-	end	*/
+	end*/
 	if (counter > 0 && counter < 10) begin
 		DCtrl <= 2'b00;
 		OUTCtrl = 1'b0;
@@ -128,7 +133,7 @@ always @(posedge clk) begin
 	else if (counter > 10)begin
 		counter <= 1;
 		DCtrl <= 2'b00;
-		iterate <= 0;
+		iterate <= 1;
 		OUTCtrl = 1'b0;
 	end
 end

@@ -6,7 +6,8 @@ module Encrypt(
 input [127:0] SecretKey, 
 input [127:0] PlainText,
 input clk,
-output [127:0] CipherText
+output [127:0] CipherText,
+output [127:0] EncryptKey
 
 );
 
@@ -39,12 +40,13 @@ RoundB option10(NewRoundKey, NewState, newiterate, RoundBKeyOut, RoundBStateOut)
 RoundE option0(NewRoundKey, NewState, RoundEStateOut);//key, state in, state out
 
 smallmux OUTmux(OUTCtrl, MuxStateOut, CipherText);
+smallmux OUTkeymux(OUTCtrl, MuxKeyOut, EncryptKey);
 
 
 
 endmodule
 
-/*
+
 module testEncrypt();
 
 
@@ -52,8 +54,9 @@ reg [127:0] SecretKey;
 reg [127:0] PlainText;
 reg clk;
 wire [127:0] CipherText;
+wire [127:0] EncryptKey;
 
-Encrypt testing(SecretKey, PlainText, clk, CipherText);
+Encrypt testing(SecretKey, PlainText, clk, CipherText, EncryptKey);
 
 initial clk=0;
 always #10 clk=!clk;
@@ -68,7 +71,7 @@ $display("%b ", CipherText);
 
 $finish;
 end
-endmodule*/
+endmodule
 
 
 
