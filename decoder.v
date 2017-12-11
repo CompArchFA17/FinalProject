@@ -17,12 +17,12 @@ module mux(
     //Whenever there is a change in the Data_in, execute the always block.
     always @(*)
     case (Ctrl)   
-        00 : Data_out = RoundA;
-        01 : Data_out = RoundB;
-        10 : Data_out = Initial;
-        11 : Data_out = RoundE;        
+        2'b00 : Data_out = RoundA;
+        2'b01 : Data_out = RoundB;
+        2'b10 : Data_out = Initial;
+        2'b11 : Data_out = RoundE;        
         //To make sure that latches are not created create a default value for output.
-        default : Data_out = Initial; 
+        default : Data_out = 128'h7; 
     endcase
 endmodule
 
