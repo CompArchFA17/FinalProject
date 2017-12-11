@@ -2,14 +2,14 @@
 
 make
 
-echo "Running all module tests:"
+echo "----------Running all module tests:----------"
 
 cat mem_test_data.dat > matrix_mem.dat
-echo "Running data memory tests..."
+echo "	Running data memory tests..."
 ./data_mem
-echo "Running arithmetic tests..."
+echo "	Running arithmetic tests..."
 ./arithmetic
-echo "Running dot tests..."
+echo "	Running dot tests..."
 ./dot
 echo "Running matmul tests..."
 ./matrixmultiplication
@@ -24,10 +24,21 @@ echo "Running multiplier tests..."
 echo "Running multiplexer tests..."
 ./multiplexer
 echo "running fsm tests..."
-./fsm
-echo "running program memory tests..."
+echo "	Running matmul tests..."
+./matmul
+echo "	Running register tests..."
+./registers
+echo "	Running load block tests..."
+./load_block
+echo "	Running program memory tests..."
 ./prog_mem
-echo "running controller tests..."
-./controller
+echo "	Running controller tests..."
+
 echo "Running multiplier_network tests..."
 ./multiplier_network
+
+cat matrix_manager_test.dat > matrix_mem.dat
+echo "	Running matrix manager tests..."
+./matrix_manager
+
+make clean

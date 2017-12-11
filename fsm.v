@@ -1,7 +1,7 @@
 /*
 Manages the control signals throught the matrix multiplier based on an input command
 
-commad structure:
+command structure:
 	|type|block|
 	| 0 0|0 0 0|
 
@@ -16,6 +16,8 @@ Outputs:
 	- data_we: write enable for the data memory
 	- weA-weH: write enables for each input to the computation blocks
 	- jklm_select: select bits for mux on the output matricies
+	- next_row: signals to the matrix manager to go to a new row of the matrix
+	- column: tells the matrix manager to use the column quantity for the first matrix (0), or the second and result matrices (1)
 */
 
 module fsm
@@ -27,7 +29,9 @@ parameter BLOCK_LEN = 3
 	input[TYPE_LEN+BLOCK_LEN-1:0] command,
 	output data_we,
 	output weA, weB, weC, weD, weE, weF, weG, weH,
-	output[1:0] jklm_select
+	output[1:0] jklm_select,
+	output next_row,
+	output column
 );
 
 	wire[TYPE_LEN-1:0] type;
@@ -36,6 +40,11 @@ parameter BLOCK_LEN = 3
 
 	wire[BLOCK_LEN-1:0] block;
 	assign block = command[BLOCK_LEN-1:0];
+
+	// signaling the next row currently only works because we only use 6x6 matrices
+	assign next_row = block[0];
+
+	assign column = (block[2] && !type[0]) || type[0]; // 1 when we are using the second matrix or result
 
 	assign jklm_select = block[1:0]; // last two bits of block select which matrix to store
 
