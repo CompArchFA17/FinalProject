@@ -8,7 +8,7 @@ dot: dot.v dot.t.v arithmetic
 	iverilog -Wall -o dot dot.t.v
 
 matrixmultiplication: matrixmultiplication.v matrixmultiplication.t.v dot
-	iverilog -Wall -o matmul matrixmultiplication.t.v
+	iverilog -Wall -o matrixmultiplication matrixmultiplication.t.v
 
 data_mem: data_memory.v data_memory.t.v
 	iverilog -Wall -o data_mem data_memory.t.v
@@ -37,5 +37,5 @@ prog_mem: prog_memory.v prog_memory.t.v
 controller: controller.v controller.t.v prog_mem fsm
 	iverilog -Wall -o controller controller.t.v
 
-multiplier_network: multiplier_network.v multiplier_network.t.v multiplexer multiplier add3by3
+multiplier_network: multiplier_network.v multiplier_network.t.v multiplexer multiplier add_block
 	iverilog -Wall -o multiplier_network multiplier_network.t.v
