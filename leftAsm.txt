@@ -1,0 +1,2 @@
+MOV 4 RIGHT
+MOV 1 ACC
