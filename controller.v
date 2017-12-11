@@ -19,7 +19,8 @@ module controller
 	input clk,
 	output data_we,
 	output weA, weB, weC, weD, weE, weF, weG, weH,
-	output[1:0] jklm_select
+	output[1:0] jklm_select,
+	output next_row, column
 );
 	
 	wire[CMD_WIDTH-1:0] cmd;
@@ -34,6 +35,6 @@ module controller
 	memory prog_mem (clk, cmd, prog_count);
 	
 	fsm state_machie (cmd, data_we, weA, weB, weC, weD, weE, weF, weG, weH,
-				jklm_select);
+				jklm_select, next_row, column);
 
 endmodule

@@ -7,13 +7,17 @@ module fsm_TEST();
 	wire data_we;
 	wire weA, weB, weC, weD, weE, weF, weG, weH;
 	wire[1:0] jklm_sel;
+	wire next_row;
+	wire column;
 
 	fsm dut (
 		.command(command),
 		.data_we(data_we),
 		.weA(weA), .weB(weB), .weC(weC), .weD(weD),
 		.weE(weE), .weF(weF), .weG(weG), .weH(weH),
-		.jklm_select(jklm_sel)
+		.jklm_select(jklm_sel),
+		.next_row(next_row),
+		.column(column)
 	);
 
 	reg[5:0] success_count = 0;
@@ -29,12 +33,18 @@ module fsm_TEST();
 	if (data_we != 0) begin
 		$display("Test Case 1 Failed: data_we not set correctly");
 	end
-	else if (weA === 1 & {weB, weC, weD, weE, weF, weG, weH} === 7'b0) begin
-		// test passed
-		success_count = success_count+1;
+	else if (weA !== 1 & {weB, weC, weD, weE, weF, weG, weH} !== 7'b0) begin
+		$display("Test Case 1 Failed: write enables not set correctly");
+	end
+	else if (next_row != 0) begin
+		$display("Test Case 1 Failed: next row is signalled incorrectly");
+	end
+	else if (column != 0) begin
+		$display("Test Case 1 Failed: column is signalled incorrectly");
 	end
 	else begin
-		$display("Test Case 1 Failed: write enables not set correctly");
+		// test passed
+		success_count = success_count+1;
 	end
 
 	// Test Case 2: load to block C
@@ -44,12 +54,18 @@ module fsm_TEST();
 	if (data_we != 0) begin
 		$display("Test Case 2 Failed: data_we not set correctly");
 	end
-	else if (weD === 1 & {weA, weB, weC, weE, weF, weG, weH} === 7'b0) begin
-		// test passed
-		success_count = success_count+1;
+	else if (weD !== 1 & {weA, weB, weC, weE, weF, weG, weH} !== 7'b0) begin
+				$display("Test Case 2 Failed: write enables not set correctly");
+	end
+	else if (next_row != 1) begin
+		$display("Test Case 2 Failed: next row is signalled incorrectly");
+	end
+	else if (column != 0) begin
+		$display("Test Case 2 Failed: column is signalled incorrectly");
 	end
 	else begin
-		$display("Test Case 2 Failed: write enables not set correctly");
+		// test passed
+		success_count = success_count+1;
 	end
 
 	// Test Case 3: load to block H
@@ -57,14 +73,20 @@ module fsm_TEST();
 	#10
 
 	if (data_we != 0) begin
-		$display("Test Case 1 Failed: data_we not set correctly");
+		$display("Test Case 3 Failed: data_we not set correctly");
 	end
-	else if (weH === 1 & {weA, weB, weC, weD, weE, weF, weG} === 7'b0) begin
-		// test passed
-		success_count = success_count+1;
+	else if (weH !== 1 & {weA, weB, weC, weD, weE, weF, weG} !== 7'b0) begin
+		$display("Test Case 3 Failed: write enables not set correctly");
+	end
+	else if (next_row != 1) begin
+		$display("Test Case 3 Failed: next row is signalled incorrectly");
+	end
+	else if (column != 1) begin
+		$display("Test Case 3 Failed: column is signalled incorrectly");
 	end
 	else begin
-		$display("Test Case 3 Failed: write enables not set correctly");
+		// test passed
+		success_count = success_count+1;
 	end
 
 	// Test Case 4: store from block J
@@ -79,6 +101,12 @@ module fsm_TEST();
 	end
 	else if (jklm_sel != 2'b00) begin
 		$display("Test Case 4 Failed: jklm_select not correct");
+	end
+	else if (next_row != 0) begin
+		$display("Test Case 4 Failed: next row is signalled incorrectly");
+	end
+	else if (column != 1) begin
+		$display("Test Case 4 Failed: column is signalled incorrectly");
 	end
 	else begin
 		// test passed
@@ -97,6 +125,12 @@ module fsm_TEST();
 	end
 	else if (jklm_sel != 2'b11) begin
 		$display("Test Case 5 Failed: jklm_select not correct");
+	end
+	else if (next_row != 1) begin
+		$display("Test Case 5 Failed: next row is signalled incorrectly");
+	end
+	else if (column != 1) begin
+		$display("Test Case 5 Failed: column is signalled incorrectly");
 	end
 	else begin
 		// test passed

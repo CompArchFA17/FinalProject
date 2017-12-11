@@ -9,9 +9,9 @@ module memory
     parameter width         = 32
 )
 (
-    input 		                clk,
-    output [width-1:0]      data0, data1, data2, data3, data4,
-    output [width-1:0]      data5, data6, data7, data8,
+    input                       clk,
+    output [width-1:0]          data0, data1, data2, data3, data4,
+    output [width-1:0]          data5, data6, data7, data8,
     input [addresswidth-1:0]    addr0, addr1, addr2, addr3, addr4,
     input [addresswidth-1:0]    addr5, addr6, addr7, addr8,
     input                       writeEnable,
