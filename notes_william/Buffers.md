@@ -12,9 +12,11 @@ This is a simplified picture of what the frame buffer is.  It simply saves all t
 ##### What is a buffer?
 It is a matrix of values in memory that correspond to the pixels on the screen.  These values also have a particular bit depth based on what the buffer is and how the programmer wishes to use it.  For example, one could use a 1 bit depth color buffer to represent only black and white on a screen.  An important thing to remember about these buffers is that their main purpose is to save data that would be useful later.  All of these buffers generally keep and maintain data from previous computation unless explicitly cleared.
 
-**Tentative Note:**
+**Tentative Note: (Actually I think this is wrong now.)**
 
-It appears that all of these buffers other than the main color buffer, are things that you can set your self.  Many graphics programs use most of them simply because they are so integral to being able to do graphics, however, one could make buffers for whatever information they want and use them in calculations.  All of these buffers are stored in the graphics hardware's random access memory (RAM), and are designated, not explicitly in the hardware, but by the programmer.
+~~It appears that all of these buffers other than the main color buffer, are things that you can set your self.  Many graphics programs use most of them simply because they are so integral to being able to do graphics, however, one could make buffers for whatever information they want and use them in calculations.  All of these buffers are stored in the graphics hardware's random access memory (RAM), and are designated, not explicitly in the hardware, but by the programmer.~~
+
+I think the color buffers, depth buffer, and stencil buffer are all hardware level set aside memory area on the ram of the gpu or unified ram.
 
 ###### (Not Sure if this is correct)
 
@@ -75,7 +77,7 @@ This buffer essentially just records the normals of the fragments in the scene. 
 
 In the example, you can see that the normals of the object denoted with RGB values.  Green points towards positive y (up), Red points towards positive x (right), and blue points towards positive z (towards camera).  This is why everything in the middle is generally blue, and all the values have a blueish tint, because we are looking from the positive z direction.  Additionally, the direction upwards between these three axis is generally grey, this is most apparent on the upper right object with the whitish plane.  The colors on the back of the sphere would be similar to those on the front but without much blue, and those there would be a dark spot on the back side.
 
-This buffer isn't as explicitly important as the other buffers, because depending on your shader program one might calculate the normals as they go and not store them all in a buffer.  Thus, as stated in the beginning, these buffers are useful tools controlled by the programmer, but not explicitly defined through hardware.  At least usually, maybe in some designs since some of these are so common there is actually explicit hardware for it.
+This buffer isn't as explicitly important as the other buffers, because depending on your shader program one might calculate the normals as they go and not store them all in a buffer.
 
 ## Clearing Buffers
 It’s also super important to clear the buffers when needed, if not then some weird visuals can happen.  For example, while I’m not sure if this is why it happens, one could imagine that if you don’t clear the color or depth buffers, one would get a scene that appears to leave a trail of moving objects.  For example, I’m sure some of y'all have experienced when you move your browser and the computer updates it’s position but doesn’t clear its old position, leaving a trail of browser on your screen.
@@ -83,7 +85,7 @@ It’s also super important to clear the buffers when needed, if not then some w
 
 ## Closing Thoughts
 
-It is important to note that this list of useful graphics buffers is not all encompassing.
+It is important to note that this list of useful graphics buffers is not all encompassing.  There are quite a few different variations of buffers that appear to be useful in different cases.  These are just the most generally applicable.
 
 
 # Resources
