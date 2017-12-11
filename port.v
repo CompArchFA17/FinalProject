@@ -1,5 +1,5 @@
 module port(input clk,
-            input leftIn, input rightIn, output leftOut, output rightOut,
+            input[11:0] leftIn, input rightIn[11:0], output leftOut[11:0], output rightOut[11:0],
             input leftWrite, output reg rightDataReady, input r2lAckIn, output r2lAckOut,
             input rightWrite, output reg leftDataReady, input l2rAckIn, output l2rAckOut);
   reg[11:0] buffer;
