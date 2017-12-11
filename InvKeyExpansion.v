@@ -1,5 +1,5 @@
-`include "KeyExpansion.v"
-`include "InvSBoxLookup.v"
+//`include "KeyExpansion.v"
+//`include "InvSBoxLookup.v"
 
 
 module InvKeyExp128(
@@ -59,7 +59,7 @@ assign SmallerKey = {LSB, MSB};
 
 endmodule
 
-
+/*
 module testIKE();
 
 reg [31:0] inarray;
@@ -75,4 +75,4 @@ $display("%b | %b ", inarray, outarray);
 end
 
 endmodule
-
+*/
