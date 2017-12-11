@@ -1,5 +1,5 @@
-//`include "KeyExpansion.v"
-//`include "InvSBoxLookup.v"
+`include "KeyExpansion.v"
+`include "InvSBoxLookup.v"
 
 
 module InvKeyExp128(
@@ -48,13 +48,31 @@ for (i = 1; i < 5; i = i + 1) begin
 end
 endgenerate
 
-assign LSB = interimarray2[31:8];
-assign MSB = interimarray2[7:0];
+assign MSB = interimarray2[31:8];
+assign LSB = interimarray2[7:0];
 
-assign SmallerKey = {MSB, LSB};
+assign SmallerKey = {LSB, MSB};
 
 
 
 
 
 endmodule
+
+
+module testIKE();
+
+reg [31:0] inarray;
+reg[7:0] iterate;
+wire [31:0] outarray;
+
+InvKeyExpansion key(inarray, iterate, outarray);
+
+initial begin
+
+inarray = 32'b01110011010110010100011111110001 ; iterate = 8'b1000; #40
+$display("%b | %b ", inarray, outarray);
+end
+
+endmodule
+

@@ -1,4 +1,4 @@
-//`include "SBoxLookup.v"
+`include "SBoxLookup.v"
 `include "RConLookup.v"
 
 module KeyExp128(
@@ -51,7 +51,7 @@ BigXOR8b bxor(interimarray2[31:24], rconval, outarray[31:24]);
 BigXOR24b bxor24(interimarray2[23:0], zeros, outarray[23:0]);
 
 endmodule
-/*
+
 module testKE();
 
 reg [31:0] inarray;
@@ -63,11 +63,11 @@ KeyExpansion key(inarray, iterate, outarray);
 initial begin
 
 inarray = 32'b00101011011111100001010100010110; iterate = 8'b1000; #40
-$display("%b | %b ", outarray, inarray[31:24]);
+$display("%b | %b ", outarray, inarray);
 end
 
 endmodule
-*/
+
 
 module BigXOR8b(
 input [7:0] V,
