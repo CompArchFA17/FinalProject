@@ -1,4 +1,4 @@
-all: arithmetic dot matrixmultiplication registers data_mem load_block
+all: arithmetic dot matrixmultiplication registers data_mem load_block add_block multiplier registers multiplexer fsm prog_mem controller
 
 arithmetic: arithmetic.v arithmetic.t.v
 	iverilog -Wall -o arithmetic arithmetic.t.v
@@ -17,3 +17,24 @@ data_mem: data_memory.v data_memory.t.v
 
 load_block: load_block.v load_block.t.v data_mem
 	iverilog -Wall -o load_block load_block.t.v
+
+add_block: add3by3.v add3by3.t.v
+	iverilog -Wall -o add_block add3by3.t.v
+
+registers: registers.v registers.t.v
+	iverilog -Wall -o registers registers.t.v
+
+multiplier: multiplier.v multiplier.t.v registers matrixmultiplication
+	iverilog -Wall -o multiplier multiplier.t.v
+
+fsm: fsm.v fsm.t.v
+	iverilog -Wall -o fsm fsm.t.v
+
+multiplexer: multiplexer.v multiplexer.t.v
+	iverilog -Wall -o multiplexer multiplexer.t.v
+
+prog_mem: prog_memory.v prog_memory.t.v
+	iverilog -Wall -o prog_mem prog_memory.t.v
+
+controller: controller.v controller.t.v prog_mem fsm
+	iverilog -Wall -o controller controller.t.v

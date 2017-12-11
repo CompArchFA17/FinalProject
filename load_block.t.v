@@ -5,6 +5,7 @@
 module load_block_TEST();
 	parameter ADDRESS_WIDTH = 32;
 	parameter ENTRY_SIZE = 5;
+	parameter NUM_TESTS = 4;
 
 	reg[ADDRESS_WIDTH - 1:0] addr_initial;
 	reg[ADDRESS_WIDTH - 1:0] columns;
@@ -46,7 +47,99 @@ module load_block_TEST();
 		.dataIn6(dataIn6), .dataIn7(dataIn7), .dataIn8(dataIn8)
 	);
 
+	reg[5:0] success_count = 0;
+
 	initial begin
-		// TODO(rocco): tests!
+		$dumpfile("load_block.vcd");
+		$dumpvars();
+		
+		// Test Case 1: read a 3x3 matrix from address zero
+		addr_initial = 0;
+		columns = 3;
+		
+		// cycle clock
+		clk = 0;
+		#1 clk = 1;
+		#1
+	
+		if (addrOut0 === 0 & addrOut1 === 1 & addrOut2 === 2 & 
+			addrOut3 === 3 & addrOut4 === 4 & addrOut5 === 5 & 
+			addrOut6 === 6 & addrOut7 === 7 & addrOut8 === 8)
+		begin
+			// test passed
+			success_count = success_count+1;
+		end
+		else begin
+			$display("Test case 1 failed: 3x3 matrix at addres 0");
+		end
+
+		// Test Case 2: read top left block of 4x4 matrix from address 9
+		addr_initial = 9;
+		columns = 4;
+		
+		// cycle clock
+		clk = 0;
+		#1 clk = 1;
+		#1
+	
+		if (addrOut0 === 9 & addrOut1 === 10 & addrOut2 === 11 & 
+			addrOut3 === 13 & addrOut4 === 14 & addrOut5 === 15 & 
+			addrOut6 === 17 & addrOut7 === 18 & addrOut8 === 19)
+		begin
+			// test passed
+			success_count = success_count+1;
+		end
+		else begin
+			$display("Test case 2 failed: 4x4 matrix at address 9");
+		end
+
+		// Test Case 3: read bottom right block of 4x4 matrix
+		//				(starting at address 14)
+		addr_initial = 14;
+		columns = 4;
+		
+		// cycle clock
+		clk = 0;
+		#1 clk = 1;
+		#1
+	
+		if (addrOut0 === 14 & addrOut1 === 15 & addrOut2 === 16 & 
+			addrOut3 === 18 & addrOut4 === 19 & addrOut5 === 20 & 
+			addrOut6 === 22 & addrOut7 === 23 & addrOut8 === 24)
+		begin
+			// test passed
+			success_count = success_count+1;
+		end
+		else begin
+			$display("Test case 3 failed: 4x4 matrix at address 14");
+		end
+
+		// Test Case 4: 7 column matrix at address 25
+		addr_initial = 25;
+		columns = 7;
+		
+		// cycle clock
+		clk = 0;
+		#1 clk = 1;
+		#1
+	
+		if (addrOut0 === 25 & addrOut1 === 26 & addrOut2 === 27 & 
+			addrOut3 === 32 & addrOut4 === 33 & addrOut5 === 34 & 
+			addrOut6 === 39 & addrOut7 === 40 & addrOut8 === 41)
+		begin
+			// test passed
+			success_count = success_count+1;
+		end
+		else begin
+			$display("Test case 3 failed: 4x4 matrix at address 14");
+		end
+
+		if (success_count < NUM_TESTS) begin
+			$display("\nLoad Block Failed %d Tests\n",(NUM_TESTS-success_count));
+		end
+		else begin
+			$display("Load Block Passed All %d tests", NUM_TESTS);
+		end
+
 	end
 endmodule
