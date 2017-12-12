@@ -1,6 +1,7 @@
 `include "data_memory.v"
 `include "registers.v"
 `include "load_block.v"
+
 /*
 The Matrix Manager loads or writes matrices using 3x3 matrices at a time. Starting from (0,0),
 the matrix manager iterates through the addresses of all the matrices in row major order, according 
@@ -50,7 +51,7 @@ memory #(
 	);
 
 reg[ADDR_WIDTH-1:0] next_addr;
-reg                                                                                                                                             [ADDR_WIDTH-1:0] curr_addr;
+reg[ADDR_WIDTH-1:0] curr_addr;
 
 reg[ADDR_WIDTH-1:0] num_columns;
 
@@ -64,22 +65,30 @@ address3by3block #(.MEM_ADDRESS_WIDTH(ADDR_WIDTH)) addr_loader
 
 initial begin
 	next_addr = {ADDR_WIDTH{1'b0}};
-
+	curr_addr = {ADDR_WIDTH{1'bx}};
 end
+
+always @(*) begin
+
+	if (curr_addr === {ADDR_WIDTH{1'bx}}) begin
+		next_addr <= {ADDR_WIDTH{1'b0}};
+	end
+	else if (next_row == 1'b1) begin
+		next_addr <= curr_addr + 3 + (2*num_columns);
+	end
+	else begin
+		next_addr <= curr_addr + 3;
+	end
+end
+
 
 always @(posedge clk) begin
 	curr_addr = next_addr;
-
-	if (next_row == 1'b1) begin
-		next_addr = curr_addr + 3 + (2*num_columns);
-	end
-	else begin
-		next_addr = curr_addr + 3;
-	end
 
 	if (column == 1'b1)
 		num_columns = p;
 	else
 		num_columns = m;
 end
+
 endmodule
