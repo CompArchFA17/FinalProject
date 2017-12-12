@@ -19,33 +19,33 @@ To run the program, clone the [repository](https://github.com/poosomooso/FinalPr
 
 ## Implementation
 
-![][img/FullMultiplier.jpg]
+![](img/FullMultiplier.jpg)
 
-Figure 1 : High level block diagram of the system (components explained below).
+**Figure 1** : High level block diagram of the system (components explained below).
 
-![][img/3by3multiplier.jpg]
-![][img/MultiplerwithRegisters.jpg]
+![](img/3by3multiplier.jpg)
+![](img/MultiplerwithRegisters.jpg)
 
-Figure 2 : Our core multiplier - multiplies two 3x3 matrices. The left shows the module that multiplies the matrices, and the right shows the module that contain the left module and a collection of registers to store the matrices. A and B are the input matrices, and C is the result.
+**Figure 2** : Our core multiplier - multiplies two 3x3 matrices. The left shows the module that multiplies the matrices, and the right shows the module that contain the left module and a collection of registers to store the matrices. A and B are the input matrices, and C is the result.
 
 The heart of our algorithm is the matrix multiplication unit, or the multiplier. It takes two 3x3 matrices and multiplies them. It consists of 9 dot product modules that dot product length 3 vectors, and the dot products happen in parallel. The multiplier also contains a small collection of registers that temporarily store the input and output matrices until other modules use the result.
 
-![][img/matrices.PNG]
+![](img/matrices.PNG)
 
-Figure 3 : the algorithm we use to multiply the 6x6 matrix, where each capital letter represents the 3x3 section of the matrix.
+**Figure 3** : the algorithm we use to multiply the 6x6 matrix, where each capital letter represents the 3x3 section of the matrix.
 
 Each 6x6 matrix is broken down into 4 3x3 matrices. The figure above shows the algorithm we use to multiply the broken up matrices, where each 3x3 matrix is represented with a capital letter. We are basically breaking up the dot products of each row and column vector into 3x3 chunks, and adding them together. This is a simplified version of the [divide and conquer algorithm](https://en.wikipedia.org/wiki/Matrix_multiplication_algorithm#Divide_and_conquer_algorithm), which is preferred over performing each dot product, generally because of caching (though not relevant in our case). In our case, we preferred it because it allowed us to have constant size multiplication blocks (the aforementioned 3x3 matrix multiplication unit), so we didn’t have to make variable size dot product modules. Although we currently constrained ourselves to 6x6 matrices, using the 3x3 modules allows us to scale in the future.
 
-![][img/MultiplierNetwork.jpg]
+![](img/MultiplierNetwork.jpg)
 
-Figure 4 : The multiplier network that parallelizes the 8 dot products and 4 additions necessary to multiply the 6x6 matrix.
+**Figure 4** : The multiplier network that parallelizes the 8 dot products and 4 additions necessary to multiply the 6x6 matrix.
 
 The algorithm is performed and parallelized in the multiplier network. The multiplier network contains 8 multipliers, one for each pair of broken up matrices that need to be multiplied. It also contains four 3x3 matrix adders. Each 3x3 matrix in the result matrix of the above figure uses 2 of these multipliers and one matrix adder, so all of the resultant 3x3 matrices are calculated independent of each other.
 
-![][img/LoadBlock.jpg]
-![][img/MatrixManager.jpg]
+![](img/LoadBlock.jpg)
+![](img/MatrixManager.jpg)
 
-Figure 5 : The matrix manager that handles the main memory and breaks down the matrices. The left is the load block module which generates the addresses for the 3x3 block in memory. The right is the full matrix manager, which uses the load block, data memory, and an address register. It also has a block for determining the next address, which is mostly muxes and arithmetic.
+**Figure 5** : The matrix manager that handles the main memory and breaks down the matrices. The left is the load block module which generates the addresses for the 3x3 block in memory. The right is the full matrix manager, which uses the load block, data memory, and an address register. It also has a block for determining the next address, which is mostly muxes and arithmetic.
 
 We use the matrix manager to break down the matrices and populate the multiplier network correctly. The matrix manager manages loads and stores to data memory. It also computes and keeps track of the index of the first element of the 3x3 arrays, and uses a load block module to retrieve the 3x3 array starting from the computed starting index. The output from the matrix manager goes to the network of multipliers. The output from the multiplier network is fed back into the matrix manager to store into memory. We store the matrices as a vector in data memory, as follows:
 
@@ -63,9 +63,9 @@ We use the matrix manager to break down the matrices and populate the multiplier
 
 These matrices are stored sequentially in memory, and the resultant matrix is stored directly following the second matrix in memory.
 
-![][img/Controller.jpg]
+![](img/Controller.jpg)
 
-Figure 6 : The module generating the control signals, backed by an FSM that generates signals based on a series of instructions.
+**Figure 6** : The module generating the control signals, backed by an FSM that generates signals based on a series of instructions.
 
 Finally we have the controller. The controller reads in commands from a file and writes them to the FSM. The FSM breaks down the command into two sections: the *type*, which is either ‘00’ for loading a matrix, or ‘01’ for saving a matrix, and the *block*, which represents a particular 3x3 matrix:
 
