@@ -1,5 +1,8 @@
 /*
-FFFFFF
+The full 6 by 6 multiplier.
+
+Inputs:
+	-clk: the system clock
 */
 
 `include "controller.v"
@@ -7,11 +10,11 @@ FFFFFF
 `include "multiplier_network.v"
 
 module multiplier6by6(
-	input clk,
+	input clk
 );
 	wire data_we;
 	wire weA, weB, weC, weD, weE, weF, weG, weH;
-	wire jklm_select;
+	wire[1:0] jklm_select;
 	wire next_row, column;
 
 	wire[4:0] dataOut0, dataOut1, dataOut2, dataOut3, dataOut4, dataOut5, dataOut6, dataOut7, dataOut8;
@@ -44,7 +47,7 @@ module multiplier6by6(
 		.dh6_in(dataOut6), .dh7_in(dataOut7), .dh8_in(dataOut8), .res(result)
 		);
 
-	matrix_manager #(.ADDR_WIDTH = 32) manager (.clk(clk), .dm_we(data_we),
+	matrix_manager #(.ADDR_WIDTH(32)) manager (.clk(clk), .dm_we(data_we),
 		.next_row(next_row), .column(column), .n(6), .m(6), .p(6), .dataIn0 (result[4:0]), .dataIn1 (result[9:5]),
 		.dataIn2 (result[14:10]), .dataIn3 (result[19:15]), .dataIn4 (result[24:20]), .dataIn5 (result[29:25]), .dataIn6 (result[34:30]),
 		.dataIn7 (result[39:35]), .dataIn8 (result[44:40]), .dataOut0(dataOut0), .dataOut1(dataOut1),
