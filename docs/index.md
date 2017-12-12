@@ -23,7 +23,7 @@ To run the program, clone the [repository](https://github.com/poosomooso/FinalPr
 
 **Figure 1** : High level block diagram of the system (components explained below).
 
-![](img/3by3mulltiplier.jpg)
+![](img/MultiplierwithRegisters.jpg)
 
 **Figure 2** : Our core multiplier - multiplies two 3x3 matrices. The core multiplier contains a matrix multiplication module and a collection of registers to store the matrices. A and B are the input matrices, and C is the result.
 
