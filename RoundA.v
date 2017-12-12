@@ -45,13 +45,13 @@ reg [7:0] it;
 wire [127:0] KO;
 wire [127:0] STO;
 
-RoundB round(KI, SI, it, KO, STO);
+RoundA round(KI, SI, it, KO, STO);
 initial begin
 
 KI = 128'h123 ; SI = 128'b101110011111 ; it = 8'b1; #400
-$display("This is RoundB KeyOut ");
+$display("This is RoundA KeyOut ");
 $display("%b  ", KO);
-$display("This is RoundB StateOut ");
+$display("This is RoundA StateOut ");
 $display("%b ", STO);
 
 end
