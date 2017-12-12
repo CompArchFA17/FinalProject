@@ -1,8 +1,8 @@
-/*`include "AddRoundKey.v"
+`include "AddRoundKey.v"
 
 `include "ShiftRows.v"
 
-`include "KeyExpansion.v"*/
+`include "KeyExpansion.v"
 
 `include "InvMixColumns.v"
 `include "InvSubBytes.v"
@@ -32,6 +32,28 @@ InvMixColumns CMC(ARKOut, MCOut);
 
 assign KeyOut = RoundKey;
 assign StateOut = MCOut;
+
+endmodule
+
+module testC();
+
+reg [127:0] KI;
+reg [127:0] SI;
+reg [7:0] it;
+wire [127:0] KO;
+wire [127:0] STO;
+
+RoundC round(KI, SI, it, KO, STO);
+initial begin
+
+KI = 128'b01100010011000110110001101100011011000100110001101100011011000110110001001100011011000110110001101100010011111000010011001100011   ; SI = 128'b00100100011000010010110100010111100011111001111110000111000000110110101110000010011110101110000010111100000010000001100010100000 
+ ; it = 8'b1; #400
+$display("This is RoundC1 KeyOut");
+$display("%b  ", KO);
+$display("This is RoundC1 StateOut ");
+$display("%b ", STO);
+
+end
 
 endmodule
 

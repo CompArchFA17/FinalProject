@@ -45,13 +45,14 @@ reg [7:0] it;
 wire [127:0] KO;
 wire [127:0] STO;
 
-RoundA round(KI, SI, it, KO, STO);
+RoundB round(KI, SI, it, KO, STO);
 initial begin
 
-KI = 128'h2A; SI = 128'h19; it = 8'b10; #400
-$display("This is RoundA");
-$display("%b | %b ", KI[31:0], KO [31:0]);
-$display("%b | %b ", SI[31:0], STO);
+KI = 128'b11111001111110111111101110101010111110011111101111111011101010101111100111111011111110111010101000010010111101111111101110101010 ; SI = 128'b10011011100110001001100011001001100110111001100010011000110010011001101110011000100110001100100101110000100010111101011001010110; it = 8'b11; #400
+$display("This is RoundB KeyOut ");
+$display("%b  ", KO);
+$display("This is RoundB StateOut ");
+$display("%b ", STO);
 
 end
 
@@ -90,11 +91,16 @@ endmodule
 module RoundE(
 	input [127:0] KeyIn,
 	input [127:0] StateIn,
-	output [127:0] StateOut
+	output [127:0] StateOut,
+	output [127:0] KeyOut
 );
 
 
 AddRoundKey ARKtest(StateIn, KeyIn, StateOut); // takes in In, Key, gives
+assign KeyOut = KeyIn;
+
+
+
 
 endmodule
 
