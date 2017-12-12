@@ -63,3 +63,31 @@ After 2000:
 - Heterogeneous multi-core: contains both types, can specialize
 
 ![types of multi-cores](ufmg_heterogeneity.PNG)
+
+#### Regularity in threading
+
+Regularity (similarity in behavior between threads) allows for greater parallelism: time-intensive tasks like memory access across multiple threads can be consolidated into a single transaction. This cooperative sharing of fetch/decode and load/store units improves area/power efficiency (Nvidia calls this SIMT, in which threads are consolidated into "warps" for improved performance).
+
+![regularity in data](ufmg_regularity.PNG)
+
+#### Control Divergence
+
+Traditionally, in SIMD processing:
+
+- One thread per processing element
+- All elements execute the same instruction
+- Elements can be individually disabled
+
+This is basically the structure covered in the SigGraph talk. Performance takes a larger hit the more branches taken, because every branch is taken.
+
+![naive SIMT](ufmg_SIMT.PNG)
+
+This is accomplished through the use of a mask stack or activity counters; a bit per thread shows which are currently active, or a counter per thread counts up for each active instruction cycle.
+
+Alternately, you can maintain a separate program counter per thread. This has performance benefits, but makes thread synchronization a non-trivial task. Now you need to figure out which PC to use as the "master" PC each cycle, since you still only want to do one consolidated instruction fetch operation. This can be determined via various criteria (most common, latest, deepest function call nesting level, some combination) to maximize efficiency.
+
+![voting SIMT](ufmg_SIMT_voting.PNG)
+
+This starts looking a lot less like SIMD and a lot more like normal programs. There's no enforced lockstep of vector instructions; it's basically just different cores doing different things in parallel. You also don't need to maintain a stack of activation bits, which is nice.
+
+This general paradigm is called SPMD (Single Program, Multiple Data). It's an idea that can be used for more than just specialized vector processors, and can also refer to parallel computation being done via message passing (e.g. MPI) over multiple independent computers, which allows for more flexibility in instruction fetches as well.
