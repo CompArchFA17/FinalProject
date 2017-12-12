@@ -35,10 +35,14 @@ n = 10'd6;
 m = 10'd3;
 p = 10'd6;
 
+// A * C D = E F
+// B         G H
+
 dm_we = 1'b0;
 
 #20
 
+// A
 if (dataOut0 !== 5'd0 || dataOut1 !== 5'd1 || dataOut2 !== 5'd2 ||
 	dataOut3 !== 5'd3 || dataOut4 !== 5'd4 || dataOut5 !== 5'd5 ||
 	dataOut6 !== 5'd6 || dataOut7 !== 5'd7 || dataOut8 !== 5'd8) begin
@@ -49,6 +53,7 @@ next_row = 1'b1;
 
 #20
 
+// B
 if (dataOut0 !== 5'd9 || dataOut1 !== 5'd10 || dataOut2 !== 5'd11 ||
 	dataOut3 !== 5'd12 || dataOut4 !== 5'd13 || dataOut5 !== 5'd14 ||
 	dataOut6 !== 5'd15 || dataOut7 !== 5'd16 || dataOut8 !== 5'd17) begin
@@ -59,6 +64,7 @@ column = 1'b1;
 
 #20
 
+// C
 if (dataOut0 !== 5'd18 || dataOut1 !== 5'd19 || dataOut2 !== 5'd20 ||
 	dataOut3 !== 5'd24 || dataOut4 !== 5'd25 || dataOut5 !== 5'd26 ||
 	dataOut6 !== 5'd30 || dataOut7 !== 5'd31 || dataOut8 !== 5'd0) begin
@@ -69,6 +75,7 @@ next_row = 1'b0;
 
 #20
 
+// D
 if (dataOut0 !== 5'd21 || dataOut1 !== 5'd22 || dataOut2 !== 5'd23 ||
 	dataOut3 !== 5'd27 || dataOut4 !== 5'd28 || dataOut5 !== 5'd29 ||
 	dataOut6 !== 5'd0 || dataOut7 !== 5'd0 || dataOut8 !== 5'd0) begin
@@ -76,16 +83,54 @@ if (dataOut0 !== 5'd21 || dataOut1 !== 5'd22 || dataOut2 !== 5'd23 ||
 end
 
 next_row = 1'b1;
+dm_we = 1'b1;
+
+dataIn0 = 5'd0;
+dataIn1 = 5'd1;
+dataIn2 = 5'd2;
+dataIn3 = 5'd3;
+dataIn4 = 5'd4;
+dataIn5 = 5'd5;
+dataIn6 = 5'd6;
+dataIn7 = 5'd7;
+dataIn8 = 5'd8;
+
+#10 // go to negedge
+
+//E
+if (dataOut0 !== 5'd0 || dataOut1 !== 5'd1 || dataOut2 !== 5'd2 ||
+	dataOut3 !== 5'd3 || dataOut4 !== 5'd4 || dataOut5 !== 5'd5 ||
+	dataOut6 !== 5'd6 || dataOut7 !== 5'd7 || dataOut8 !== 5'd8) begin
+	$display("test 5 FAILED: matrix manager did not write result matrix correctly");
+end
+
+next_row = 1'b0;
+
+dataIn0 = 5'd10;
+dataIn1 = 5'd11;
+dataIn2 = 5'd12;
+dataIn3 = 5'd13;
+dataIn4 = 5'd14;
+dataIn5 = 5'd15;
+dataIn6 = 5'd16;
+dataIn7 = 5'd17;
+dataIn8 = 5'd18;
 
 #20
 
-if (dataOut0 !== 5'd0 || dataOut1 !== 5'd0 || dataOut2 !== 5'd0 ||
-	dataOut3 !== 5'd0 || dataOut4 !== 5'd0 || dataOut5 !== 5'd0 ||
-	dataOut6 !== 5'd0 || dataOut7 !== 5'd0 || dataOut8 !== 5'd0) begin
-	$display("test 5 FAILED: matrix manager did not output second matrix correctly");
+if (dataOut0 !== 5'd10 || dataOut1 !== 5'd11 || dataOut2 !== 5'd12 ||
+	dataOut3 !== 5'd13 || dataOut4 !== 5'd14 || dataOut5 !== 5'd15 ||
+	dataOut6 !== 5'd16 || dataOut7 !== 5'd17 || dataOut8 !== 5'd18) begin
+	$display("test 6 FAILED: matrix manager did not write result matrix correctly");
 end
 
+
+
+
+
 $finish;
+
+
 
 end
 

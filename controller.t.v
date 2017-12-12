@@ -96,7 +96,6 @@ initial begin
         else begin
                 // test passed
                 success_count = success_count+1;
-                $display("what");
         end
 
         if (success_count < NUM_TESTS) begin
