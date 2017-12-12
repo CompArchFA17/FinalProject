@@ -15,7 +15,7 @@ After studying single cycle MIPS CPUs, we were interested in other computing arc
 
 We made custom architecture that can multiply two 6x6 arrays of 5 bit unsigned integers (or smaller arrays, if you pad the rest of the matrices with zeros). 
 
-To run the program, clone the [repository](https://github.com/poosomooso/FinalProject) and run `./6by6multiply.sh`. If you wish to try different matrices, you can change the matrices in`setup_memory.py`. 
+To run the program, clone the [repository](https://github.com/poosomooso/FinalProject), run the command `chmod 755 ./6by6multiply` and then run `./6by6multiply.sh`.If you wish to try different matrices, you can change the matrices in`setup_memory.py`. 
 
 ## Implementation
 
@@ -23,11 +23,11 @@ To run the program, clone the [repository](https://github.com/poosomooso/FinalPr
 
 **Figure 1** : High level block diagram of the system (components explained below).
 
-![](img/MultiplierwithRegisters.jpg)
+![](img/3by3mulltiplier.jpg)
 
 **Figure 2** : Our core multiplier - multiplies two 3x3 matrices. The core multiplier contains a matrix multiplication module and a collection of registers to store the matrices. A and B are the input matrices, and C is the result.
 
-The heart of our algorithm is the matrix multiplication unit, or the multiplier. It takes two 3x3 matrices and multiplies them. It consists of 9 dot product modules that dot product length 3 vectors, and the dot products happen in parallel. The multiplier also contains a small collection of registers that temporarily store the input and output matrices until other modules use the result.
+The heart of our algorithm is the matrix multiplication unit, or the multiplier. It takes two 3x3 matrices and multiplies them. It consists of 9 dot product modules that dot product vectors of length 3. The dot products happen in parallel. The multiplier also contains a small collection of registers that temporarily store the input and output matrices until other modules use the result.
 
 ![](img/matrices.PNG)
 
