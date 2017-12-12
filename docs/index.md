@@ -9,19 +9,24 @@ We designed computer hardware to optimize multiplying two 6x6 matrices. Matrix m
 
 ## Project Motivation and Background
 
-After studying single cycle MIPS CPUs, we were interested in other computing architectures with different strengths and weaknesses. We first looked at GPUs, which were originally designed specifically for graphics, but have recently been generalized to have all the functionality of CPUs. Graphics operations are essentially a subset of matrix operations (where the :With this added functionality, GPUs have become increasingly useful for machine learning algorithms and general parallel computing. In particular, computations on matrices are complex and time intensive on normal CPUs, but the extreme parallelization of computations in a GPU makes these operations much more efficient. We wanted to explore this increase in efficiency by making some purpose built hardware for matrix multiplication.
+After studying single cycle MIPS CPUs, we were interested in other computing architectures with different strengths and weaknesses. We first looked at GPUs, which were originally designed specifically for graphics, but have recently been generalized to have all the functionality of CPUs. Graphics operations are essentially a subset of matrix operations, so GPUs with the ability to perform the same operations as CPUs have become increasingly useful for machine learning algorithms and general parallel computing. In particular, computations on matrices are complex and time intensive on normal CPUs, but the extreme parallelization of computations in a GPU makes these operations much more efficient. We wanted to explore this increase in efficiency by making some purpose built hardware for matrix multiplication.
 
 ## How to use
 
 We made custom architecture that can multiply two 6x6 arrays of 5 bit unsigned integers (or smaller arrays, if you pad the rest of the matrices with zeros). 
 
-To run the program, clone the [repository](https://github.com/poosomooso/FinalProject), run the command `chmod 755 ./6by6multiply` and then run `./6by6multiply.sh`.If you wish to try different matrices, you can change the matrices in`setup_memory.py`. 
+Before you run the program, download [numpy](https://www.scipy.org/scipylib/download.html). And make sure you have Python2 and Verilog.
+
+To run the program, clone the [repository](https://github.com/poosomooso/FinalProject) and run `./6by6multiply.sh`. If you wish to try different matrices, you can change the matrices in`setup_memory.py`. The final memory is written to `memory_out.txt`, and the result matrix can be read easily using `read_6by6result.py`. (this just takes the chunk of memory storing the result matrix and formats it nicely).
+
+For information about how to run unit tests and build on the current work, please use this [reference](testing.md)
 
 ## Implementation
 
 ![](img/FullMultiplier.jpg)
 
 **Figure 1** : High level block diagram of the system (components explained below).
+The overall system consists of a controller, which steps through a program described in program memory, A multiplier network which has all of the hardware to multiply two 6 by 6 matrices together, and a memory manager to load a matrix from memory and store the result back. This hardware requires a data memory preloaded with the matrices to be multiplied and a program memory preloaded with all of the steps required to multiply the matrices. Because we limited our scope to multiplying 6 by 6 matrices, the program memory is always the same; however, it is structured as program memory so that the fuctionality of our hardware could be extended more easily.
 
 ![](img/3by3mulltiplier.jpg)
 
