@@ -15,6 +15,8 @@ After studying single cycle MIPS CPUs, we were interested in other computing arc
 
 We made custom architecture that can multiply two 6x6 arrays of 5 bit unsigned integers (or smaller arrays, if you pad the rest of the matrices with zeros). 
 
+Before you run the program, download [numpy](https://www.scipy.org/scipylib/download.html). And make sure you have Python2 and Verilog.
+
 To run the program, clone the [repository](https://github.com/poosomooso/FinalProject) and run `./6by6multiply.sh`. If you wish to try different matrices, you can change the matrices in`setup_memory.py`. The final memory is written to `memory_out.txt`, and the result matrix can be read easily using `read_6by6result.py`. (this just takes the chunk of memory storing the result matrix and formats it nicely).
 
 ## Implementation
