@@ -32,9 +32,9 @@ module controller
 		prog_count = prog_count + 1;
 	end
 	
-	memory prog_mem (clk, cmd, prog_count);
+	prog_memory prog_mem (clk, cmd, prog_count);
 	
-	fsm state_machie (cmd, data_we, weA, weB, weC, weD, weE, weF, weG, weH,
+	fsm state_machine (cmd, data_we, weA, weB, weC, weD, weE, weF, weG, weH,
 				jklm_select, next_row, column);
 
 endmodule

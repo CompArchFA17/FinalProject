@@ -52,7 +52,7 @@ print "(max: {})".format(np.amax(expected))
 used_mem = Astr + Bstr
 unused_mem = ('0'*WORD_LEN+'\n')*(1024-used_mem.count('\n'))
 mem = used_mem + unused_mem[:-1]
-f = open("test.dat", 'w')
+f = open("data_test.dat", 'w')
 f.write(mem)
 f.close()
 

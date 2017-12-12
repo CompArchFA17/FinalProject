@@ -17,7 +17,7 @@ module memory_TEST();
 	wire [ENTRY_SIZE - 1:0] data0, data1, data2, data3, data4;
 	wire [ENTRY_SIZE - 1:0] data5, data6, data7, data8;
 
-	memory #(.width(ENTRY_SIZE), .addresswidth(ADDRESS_WIDTH)) dut(
+	data_memory #(.width(ENTRY_SIZE), .addresswidth(ADDRESS_WIDTH)) dut(
 		.clk(clk), .data0(data0), .data1(data1), .data2(data2),
 		.data3(data3), .data4(data4), .data5(data5), .data6(data6),
 		.data7(data7), .data8(data8), .addr0(addr0), .addr1(addr1),

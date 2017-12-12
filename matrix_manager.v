@@ -1,5 +1,4 @@
 `include "data_memory.v"
-`include "registers.v"
 `include "load_block.v"
 
 /*
@@ -35,7 +34,7 @@ module matrix_manager #(parameter ADDR_WIDTH=10, parameter DATA_WIDTH=5)
 
 wire[ADDR_WIDTH-1:0] addr0, addr1, addr2, addr3, addr4, addr5, addr6, addr7, addr8;
 
-memory #(
+data_memory #(
 		.width(DATA_WIDTH),
 		.addresswidth(ADDR_WIDTH),
 		.depth(1024)
@@ -66,7 +65,8 @@ address3by3block #(.MEM_ADDRESS_WIDTH(ADDR_WIDTH)) addr_loader
 
 initial begin
 	next_addr = {ADDR_WIDTH{1'b0}};
-	curr_addr = {ADDR_WIDTH{1'bx}};
+	curr_addr = {ADDR_WIDTH{1'b0}};
+	num_columns = m;
 end
 
 always @(*) begin
