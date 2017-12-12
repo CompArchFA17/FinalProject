@@ -5,7 +5,7 @@
 
 ## Abstract
 
-For our Computer Architecture final project, we designed computer hardware to optimize multiplying two 6x6 matrices. Matrix multiplication is a complex and time intensive operation for normal computer architectures because there are a large number of individual computations; however, it is used frequently for machine learning and ???. Because each value in the result matrix can be computed independently from any other result, matrix multiplication is an excellent candidate for parallelization. We wanted to explore the potential efficiency gain from using a purpose built matrix multiplier, and see how a computer architecture which splits a workload among a large number of computing units would actually work.
+We designed computer hardware to optimize multiplying two 6x6 matrices. Matrix multiplication is a complex and time intensive operation for normal computer architectures because there are a large number of individual computations; however, it is used frequently for machine learning and computer graphics. Because each value in the result matrix can be computed independently from any other result, matrix multiplication is an excellent candidate for parallelization. We wanted to explore the potential efficiency gain from using a purpose built matrix multiplier, and see how to split a workload among a large number of computing units.
 
 ## Project Motivation and Background
 
@@ -23,8 +23,7 @@ To run the program, clone the [repository](https://github.com/poosomooso/FinalPr
 
 **Figure 1** : High level block diagram of the system (components explained below).
 
-![](img/3by3multiplier.jpg)
-![](img/MultiplerwithRegisters.jpg)
+![](img/3by3multiplier.jpg) ![](img/MultiplerwithRegisters.jpg)
 
 **Figure 2** : Our core multiplier - multiplies two 3x3 matrices. The left shows the module that multiplies the matrices, and the right shows the module that contain the left module and a collection of registers to store the matrices. A and B are the input matrices, and C is the result.
 
@@ -42,8 +41,7 @@ Each 6x6 matrix is broken down into 4 3x3 matrices. The figure above shows the a
 
 The algorithm is performed and parallelized in the multiplier network. The multiplier network contains 8 multipliers, one for each pair of broken up matrices that need to be multiplied. It also contains four 3x3 matrix adders. Each 3x3 matrix in the result matrix of the above figure uses 2 of these multipliers and one matrix adder, so all of the resultant 3x3 matrices are calculated independent of each other.
 
-![](img/LoadBlock.jpg)
-![](img/MatrixManager.jpg)
+![](img/LoadBlock.jpg) ![](img/MatrixManager.jpg)
 
 **Figure 5** : The matrix manager that handles the main memory and breaks down the matrices. The left is the load block module which generates the addresses for the 3x3 block in memory. The right is the full matrix manager, which uses the load block, data memory, and an address register. It also has a block for determining the next address, which is mostly muxes and arithmetic.
 
@@ -102,6 +100,6 @@ I think the next logical step is to scale this up, where each dimension is an ar
 
 Another extension is to apply the matrix algorithm to actual science or graphics applications, and make customized hardware for a specific application.
 
-## Appendix
+<!-- ## Appendix -->
 
 
