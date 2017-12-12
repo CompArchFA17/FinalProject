@@ -3,7 +3,7 @@ The memory where matrices are stored.
 */
 
 // TODO (arianaolson419): Allow multiple data access in some fashion. 
-module memory
+module prog_memory
 #(
     parameter addresswidth  = 32,
     parameter depth         = addresswidth * 2,
