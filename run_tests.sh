@@ -2,7 +2,7 @@
 
 make
 
-echo "Running all module tests:"
+echo "----------Running all module tests:----------"
 
 cat mem_test_data.dat > matrix_mem.dat
 echo "	Running data memory tests..."
@@ -23,5 +23,8 @@ echo "	Running program memory tests..."
 ./prog_mem
 echo "	Running controller tests..."
 ./controller
+cat matrix_manager_test.dat > matrix_mem.dat
+echo "	Running matrix manager tests..."
+./matrix_manager
 
 make clean

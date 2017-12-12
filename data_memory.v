@@ -22,7 +22,12 @@ module memory
 
     reg [width-1:0] memory [depth-1:0];
 
+    integer i;
+
     always @(negedge clk) begin
+        // for (i = 0; i < 100; i= i+1) 
+            // $display(memory[i]);
+        // $display("dm");
         if(writeEnable)
             memory[addr0 >> 2] <= dataIn0;
             memory[addr1 >> 2] <= dataIn1;
