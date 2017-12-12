@@ -11,13 +11,14 @@ void main(void)
 	unsigned int j = 0;
 
 	// Clear screen
-	while(j < 80 * 25 * 2) {
+	while(j < 80 * 2) {
 		videoMemory[j] = ' ';
 
 		// Color
 		videoMemory[j+1] = 0x07; 		
 		j = j + 2;
 	}
+
 
 	// Reset Counter
 	j = 0;

@@ -23,6 +23,9 @@ KERNEL_OFFSET equ 0x1000
 
 [bits 16]
 load_kernel:
+    mov bx, LOAD_KERNEL
+    call print
+    call print_nl
     mov bx, KERNEL_OFFSET	; Read from disk
     mov dh, 2
     mov dl, [BOOT_DRIVE]
@@ -31,6 +34,8 @@ load_kernel:
 
 [bits 32]
 BEGIN_PMODE:
+    mov ebx, PROTECTED_MODE
+    call print_pmode		; Print
     call KERNEL_OFFSET		; Give kernel control
     jmp $ 			; Gain control from Kernel
 
