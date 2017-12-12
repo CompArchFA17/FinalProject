@@ -50,7 +50,6 @@ initial begin
     clk = 1; #1;
     clk = 0; #1;
     clk = 1; #1;
-    $display("acc = %d",accOutCenter);
     if(accOutCenter != expected[i]) begin
       $display("anyRead failed on test %d",i);
       dutPassed = 0;
