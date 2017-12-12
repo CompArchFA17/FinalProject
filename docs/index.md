@@ -23,7 +23,7 @@ To run the program, clone the [repository](https://github.com/poosomooso/FinalPr
 
 **Figure 1** : High level block diagram of the system (components explained below).
 
-![](img/3by3multiplier.jpg) ![](img/MultiplerwithRegisters.jpg)
+<img src="img/3by3mulltiplier.jpg" width="425"/> <img src="img/MultiplierwithRegisters.jpg" width="425"/>
 
 **Figure 2** : Our core multiplier - multiplies two 3x3 matrices. The left shows the module that multiplies the matrices, and the right shows the module that contain the left module and a collection of registers to store the matrices. A and B are the input matrices, and C is the result.
 
@@ -41,7 +41,7 @@ Each 6x6 matrix is broken down into 4 3x3 matrices. The figure above shows the a
 
 The algorithm is performed and parallelized in the multiplier network. The multiplier network contains 8 multipliers, one for each pair of broken up matrices that need to be multiplied. It also contains four 3x3 matrix adders. Each 3x3 matrix in the result matrix of the above figure uses 2 of these multipliers and one matrix adder, so all of the resultant 3x3 matrices are calculated independent of each other.
 
-![](img/LoadBlock.jpg) ![](img/MatrixManager.jpg)
+<img src="img/LoadBlock.jpg" width="425"/> <img src="img/MatrixManager.jpg" width="425"/>
 
 **Figure 5** : The matrix manager that handles the main memory and breaks down the matrices. The left is the load block module which generates the addresses for the 3x3 block in memory. The right is the full matrix manager, which uses the load block, data memory, and an address register. It also has a block for determining the next address, which is mostly muxes and arithmetic.
 
