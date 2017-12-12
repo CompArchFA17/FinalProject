@@ -1,7 +1,7 @@
-all: arithmetic dot matrixmultiplication data_mem load_block add_block multiplier registers multiplexer fsm prog_mem controller matrix_manager multiplier_network
+all: arithmetic dot matrixmultiplication data_mem load_block add_block multiplier registers multiplexer fsm prog_mem controller matrix_manager multiplier_network multiplier6by6
 
 clean: 
-	rm arithmetic dot matrixmultiplication data_mem load_block add_block multiplier registers multiplexer fsm prog_mem controller matrix_manager multiplier_network
+	rm arithmetic dot matrixmultiplication data_mem load_block add_block multiplier registers multiplexer fsm prog_mem controller matrix_manager multiplier_network multiplier6by6
 
 arithmetic: arithmetic.v arithmetic.t.v
 	iverilog -Wall -o arithmetic arithmetic.t.v
@@ -44,3 +44,6 @@ multiplier_network: multiplier_network.v multiplier_network.t.v multiplexer mult
 
 matrix_manager: matrix_manager.v matrix_manager.t.v data_mem registers load_block
 	iverilog -Wall -o matrix_manager matrix_manager.t.v
+
+multiplier6by6: multiplier6by6.v multiplier6by6.t.v controller matrix_manager multiplier_network
+	iverilog -Wall -o multiplier6by6 multiplier6by6.t.v
