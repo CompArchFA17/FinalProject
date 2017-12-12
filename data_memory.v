@@ -2,7 +2,7 @@
 The memory where matrices are stored.
 */
 
-module memory
+module data_memory
 #(
     parameter addresswidth  = 32,
     parameter depth         = addresswidth * 2,
@@ -26,7 +26,7 @@ module memory
 
     always @(negedge clk) begin
         // for (i = 0; i < 100; i= i+1) 
-            // $display(memory[i]);
+        //     $display(memory[i]);
         // $display("dm");
         if(writeEnable)
             memory[addr0 >> 2] <= dataIn0;
