@@ -76,24 +76,24 @@ end
 
 endmodule
 
-/*
+
 module testSR();
 
 reg [127:0] s;
-reg clk;
-wire [127:0] so;
-ShiftRows shift(s, clk, so);
 
-    initial clk=0;
-    always #10 clk=!clk;    // 50MHz Clock  
+wire [127:0] so;
+ShiftRows shift(s, so);
+
+
 
 initial begin
 
-$display("ShiftOut | StateIn | X | Y");
-s = 32'b1011001000001111; #200
-$display("%b | %b ", so, s); 
-$finish;
+$display("ShiftOut ");
+s = 128'b00000000000000000000000010111100000000000000000000001010000000000000000000000000000000000000000000000000000000000000000000000000 
+; #200
+$display("%b ", so); 
+
 end
 
 endmodule
-*/
+

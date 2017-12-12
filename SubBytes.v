@@ -25,8 +25,8 @@ SubBytes testSB(AO, SBO);
 		
 initial begin
 $display("Output | Expect | Input ");
-AO = 127'b0; #40
-$display("%b | 01100011 | %b ", SBO[7:0], AO[7:0]);
+AO = 128'hABC; #40
+$display("%b ", SBO);
 end
 
 

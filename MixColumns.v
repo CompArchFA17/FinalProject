@@ -159,49 +159,24 @@ endmodule
 /*
 module testMixCol();
 
-reg [7:0] inm2;
-reg clk;
-wire [7:0] outm2;
-reg [7:0] inm3;
-wire [7:0] outm3;
-
-Mult2 multiply(inm2, clk, outm2);
-Mult3 multiply3(inm3, clk, outm3);
-
-reg [7:0] A;
-reg [7:0] B;
-reg [7:0] C;
-reg [7:0] D;
-wire [7:0] Z;
-
-BigXOR bigx(A, B, C, D, Z);
-
 reg [127:0] inmix;
 wire [127:0] outmix;
 
-MixColumns mix(inmix, clk, outmix);
+MixColumns mix(inmix, outmix);
 
-initial clk=0;
-always #10 clk=!clk;    // 50MHz Clock  
 
 initial begin
-inm2 = 8'b10111111; #40
-$display("%b | %b ", outm2, inm2);
-inm3 = 8'b11010100; #60
-$display("%b | %b", outm3, inm3);
-A = 8'b10101010; B = 8'b01010101; C = 8'b00010001; D = 8'b10001000; #40
-$display("%b", Z);
-inmix = 128'b1101010000000000000000001011111110111111000000000000000011010100;  #20000
-//inmix = 8'b11010100; #2000
 
-$display("%b ||| %b", outmix, inmix);
+inmix = 128'h123;  #200
+$display("%b", outmix);
+$display("real input");
+$display("%b", inmix);
 
-$finish;
+
 end
 
 endmodule
 */
-
 
 
 

@@ -15,17 +15,17 @@ endgenerate
 
 endmodule
 /*
-module testSubBytes();
+module testInvSubBytes();
 
 reg [127:0] AO;
 wire [127:0] SBO;
 
-SubBytes testSB(AO, SBO);
+InvSubBytes testSB(AO, SBO);
 		
 initial begin
 $display("Output | Expect | Input ");
-AO = 127'b0; #40
-$display("%b | 01100011 | %b ", SBO[7:0], AO[7:0]);
+AO = 128'b01100011011000110110001101100011011000110110001101100011011000110110001101100011011000110110001101100011011000110110011101100101 ; #200
+$display("%b ",SBO);
 end
 
 

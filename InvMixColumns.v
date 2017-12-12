@@ -150,4 +150,26 @@ assign Z = V^W;
 
 endmodule
 
+/*
+module testInvMix();
 
+reg [127:0] inmix;
+wire [127:0] outmix;
+
+InvMixColumns mix(inmix, outmix);
+
+
+initial begin
+
+inmix = 128'b00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100010001000000110011101000111
+;  #200
+$display("inverse output");
+$display("%b", outmix);
+
+
+end
+
+
+endmodule
+
+*/
