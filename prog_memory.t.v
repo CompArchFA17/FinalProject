@@ -14,7 +14,7 @@ module memory_TEST();
 
 	wire [ENTRY_SIZE - 1:0] data;
 
-	memory #(.width(ENTRY_SIZE), .addresswidth(ADDRESS_WIDTH)) dut(
+	prog_memory #(.width(ENTRY_SIZE), .addresswidth(ADDRESS_WIDTH)) dut(
 		.clk(clk), .data(data),
 		.addr(addr)
 	);
