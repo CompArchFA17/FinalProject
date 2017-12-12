@@ -8,4 +8,6 @@ echo "Running the BIG test..."
 make
 ./multiplier6by6
 
+python2 read_6by6result.py
+
 make clean
