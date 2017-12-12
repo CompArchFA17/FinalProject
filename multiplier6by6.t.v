@@ -27,6 +27,8 @@ module multiplier6by6_TEST();
 	initial clk = 0;
 	always `CLK_DELAY clk = !clk;
 
+	integer mem_out, i;
+
 	initial begin
 		$dumpfile("multiplier6by6.vcd");
 		$dumpvars();
@@ -39,6 +41,12 @@ module multiplier6by6_TEST();
 		$display("AF + BH %b", dut.network.chooseres.AFplusBH);
 		$display("CE + DG %b", dut.network.chooseres.CEplusDG);
 		$display("CF + DH %b", dut.network.chooseres.CFplusDH);
+
+		mem_out = $fopen("memory_out.txt");
+		for (i=0; i<1024; i=i+1) begin
+			$fdisplay(mem_out, "%d", dut.manager.data_mem.memory[i]);
+		end
+		$fclose(mem_out);
 
 		$finish();
 	end
