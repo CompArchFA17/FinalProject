@@ -48,9 +48,9 @@ module multiplier6by6(
 		);
 
 	matrix_manager #(.ADDR_WIDTH(32)) manager (.clk(clk), .dm_we(data_we),
-		.next_row(next_row), .column(column), .n(6), .m(6), .p(6), .dataIn0 (result[4:0]), .dataIn1 (result[9:5]),
-		.dataIn2 (result[14:10]), .dataIn3 (result[19:15]), .dataIn4 (result[24:20]), .dataIn5 (result[29:25]), .dataIn6 (result[34:30]),
-		.dataIn7 (result[39:35]), .dataIn8 (result[44:40]), .dataOut0(dataOut0), .dataOut1(dataOut1),
+		.next_row(next_row), .column(column), .n(6), .m(6), .p(6), .dataIn0 (result[44:40]), .dataIn1 (result[39:35]),
+		.dataIn2 (result[34:30]), .dataIn3 (result[29:25]), .dataIn4 (result[24:20]), .dataIn5 (result[19:15]), .dataIn6 (result[14:10]),
+		.dataIn7 (result[9:5]), .dataIn8 (result[4:0]), .dataOut0(dataOut0), .dataOut1(dataOut1),
 		.dataOut2(dataOut2), .dataOut3(dataOut3), .dataOut4(dataOut4), .dataOut5(dataOut5),
 		.dataOut6(dataOut6), .dataOut7(dataOut7), .dataOut8(dataOut8));
 endmodule
