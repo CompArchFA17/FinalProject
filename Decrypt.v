@@ -66,6 +66,8 @@ $dumpfile("decrypt.vcd");
 $dumpvars();
 
 SecretKey = 128'h5701D4E05701D4E05701D4E057DAD4E0; CipherText = 128'hCDF27FDACDF29F4CCD3A7F4C60297F4C; #500
+
+//SecretKey = 128'h7715D9597715D9597715D9597731D959; CipherText = 128'h23ECBEB923EC4DAF2323BEAFBC8BEAF; #500
 $display("%b ", PlainText);
 
 $finish;
