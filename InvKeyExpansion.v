@@ -62,15 +62,15 @@ endmodule
 /*
 module testIKE();
 
-reg [31:0] inarray;
+reg [127:0] inarray;
 reg[7:0] iterate;
-wire [31:0] outarray;
+wire [127:0] outarray;
 
-InvKeyExpansion key(inarray, iterate, outarray);
+InvKeyExp128 key(inarray, iterate, outarray);
 
 initial begin
 
-inarray = 32'b01110011010110010100011111110001 ; iterate = 8'b1000; #40
+inarray = 128'h5701d4e05701d4e05701d4e057dad4e0 ; iterate = 8'b1000; #40
 $display("%b | %b ", inarray, outarray);
 end
 

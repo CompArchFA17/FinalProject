@@ -113,7 +113,7 @@ output reg [7:0] iterate
 reg [7:0] counter; // counting is a little messed up (which is only problematic for iterate), so changing it to 9
 
 initial counter = 8'b0;
-initial iterate = 8'b1100;
+initial iterate = 8'b1011;
 initial DCtrl = 2'b10;
 initial OUTCtrl = 1'b0;
 
