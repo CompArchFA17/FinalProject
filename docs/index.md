@@ -23,9 +23,9 @@ To run the program, clone the [repository](https://github.com/poosomooso/FinalPr
 
 **Figure 1** : High level block diagram of the system (components explained below).
 
-<img src="img/3by3mulltiplier.jpg" width="425"/> <img src="img/MultiplierwithRegisters.jpg" width="425"/>
+![](img/3by3mulltiplier.jpg)
 
-**Figure 2** : Our core multiplier - multiplies two 3x3 matrices. The left shows the module that multiplies the matrices, and the right shows the module that contain the left module and a collection of registers to store the matrices. A and B are the input matrices, and C is the result.
+**Figure 2** : Our core multiplier - multiplies two 3x3 matrices. The core multiplier contains a matrix multiplication module and a collection of registers to store the matrices. A and B are the input matrices, and C is the result.
 
 The heart of our algorithm is the matrix multiplication unit, or the multiplier. It takes two 3x3 matrices and multiplies them. It consists of 9 dot product modules that dot product length 3 vectors, and the dot products happen in parallel. The multiplier also contains a small collection of registers that temporarily store the input and output matrices until other modules use the result.
 
@@ -41,9 +41,9 @@ Each 6x6 matrix is broken down into 4 3x3 matrices. The figure above shows the a
 
 The algorithm is performed and parallelized in the multiplier network. The multiplier network contains 8 multipliers, one for each pair of broken up matrices that need to be multiplied. It also contains four 3x3 matrix adders. Each 3x3 matrix in the result matrix of the above figure uses 2 of these multipliers and one matrix adder, so all of the resultant 3x3 matrices are calculated independent of each other.
 
-<img src="img/LoadBlock.jpg" width="425"/> <img src="img/MatrixManager.jpg" width="425"/>
+<img src="img/LoadBlock.jpg" width="600"/> <img src="img/MatrixManager.jpg" width="600"/>
 
-**Figure 5** : The matrix manager that handles the main memory and breaks down the matrices. The left is the load block module which generates the addresses for the 3x3 block in memory. The right is the full matrix manager, which uses the load block, data memory, and an address register. It also has a block for determining the next address, which is mostly muxes and arithmetic.
+**Figure 5** : The matrix manager that handles the main memory and breaks down the matrices. The top is the load block module which generates the addresses for the 3x3 block in memory. The bottom is the full matrix manager, which uses the load block, data memory, and an address register. It also has a block for determining the next address, which is mostly muxes and arithmetic.
 
 We use the matrix manager to break down the matrices and populate the multiplier network correctly. The matrix manager manages loads and stores to data memory. It also computes and keeps track of the index of the first element of the 3x3 arrays, and uses a load block module to retrieve the 3x3 array starting from the computed starting index. The output from the matrix manager goes to the network of multipliers. The output from the multiplier network is fed back into the matrix manager to store into memory. We store the matrices as a vector in data memory, as follows:
 
