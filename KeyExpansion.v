@@ -1,4 +1,4 @@
-`include "SBoxLookup.v"
+//`include "SBoxLookup.v"
 `include "RConLookup.v"
 
 module KeyExp128(

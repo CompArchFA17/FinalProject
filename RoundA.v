@@ -48,8 +48,7 @@ wire [127:0] STO;
 RoundB round(KI, SI, it, KO, STO);
 initial begin
 
-KI = 128'h123 ; SI = 128'b00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000101110011111 
- ; it = 8'b1; #400
+KI = 128'h123 ; SI = 128'b101110011111 ; it = 8'b1; #400
 $display("This is RoundB KeyOut ");
 $display("%b  ", KO);
 $display("This is RoundB StateOut ");
@@ -121,7 +120,7 @@ initial OUTCtrl = 1'b0;
 
 always @(posedge clk) begin
 	counter <= counter + 1;
-	iterate <= iterate + 1;
+
 	if (counter == 0) begin
 		DCtrl <= 2'b11;
 		OUTCtrl = 1'b0;
@@ -132,11 +131,13 @@ always @(posedge clk) begin
 	end*/
 	if (counter > 0 && counter < 10) begin
 		DCtrl <= 2'b00;
+			iterate <= iterate + 1;
 		OUTCtrl = 1'b0;
 	end
 	else if (counter == 10) begin
 		DCtrl <= 2'b01;
 		OUTCtrl = 1'b1;
+		iterate <= iterate + 1;
 	end
 	else if (counter > 10)begin
 		counter <= 1;

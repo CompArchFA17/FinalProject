@@ -19,6 +19,7 @@ wire [127:0] RoundBStateOut;
 wire [127:0] RoundFStateOut;
 wire [127:0] RoundAKeyOut;
 wire [127:0] RoundBKeyOut;
+wire [127:0] RoundFKeyOut;
 
 wire [127:0] MuxKeyOut; 
 wire [127:0] MuxStateOut;
@@ -32,12 +33,12 @@ DFF flipflopState(NewState, MuxStateOut, clk); // out, in, clk
 
 InvFSM controls(clk, Ctrl, OUTCtrl, newiterate);
 
-mux RKmux(Ctrl, RoundAKeyOut, RoundBKeyOut, SecretKey, SecretKey, MuxKeyOut); // control, inA, inB, initial key, out
+mux RKmux(Ctrl, RoundAKeyOut, RoundBKeyOut, SecretKey, RoundFKeyOut, MuxKeyOut); // control, inA, inB, initial key, out
 mux SMmux(Ctrl, RoundAStateOut, RoundBStateOut, CipheredText, RoundFStateOut, MuxStateOut);
 
 RoundC Invoptions1_9(NewRoundKey, NewState, newiterate, RoundAKeyOut, RoundAStateOut);
 RoundD Invoption10(NewRoundKey, NewState, newiterate, RoundBKeyOut, RoundBStateOut);
-RoundF Invoption0(NewRoundKey, NewState, RoundFStateOut);
+RoundF Invoption0(NewRoundKey, NewState, RoundFStateOut, RoundFKeyOut);
 
 
 smallmux OUTmux(OUTCtrl, MuxStateOut, DecryptedText);
@@ -64,7 +65,7 @@ initial begin
 $dumpfile("decrypt.vcd");
 $dumpvars();
 
-SecretKey = 128'h7715D9597715D9597715D9597731D959; CipherText = 128'h23ECBEB923EC4DAF2323BEAF5BC8BEAF; #500
+SecretKey = 128'h5701D4E05701D4E05701D4E057DAD4E0; CipherText = 128'hCDF27FDACDF29F4CCD3A7F4C60297F4C; #500
 $display("%b ", PlainText);
 
 $finish;

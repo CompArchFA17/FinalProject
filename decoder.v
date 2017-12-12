@@ -43,7 +43,7 @@ module smallmux(
         0 : Data_out = zero;
         1 : Data_out = Initial;        
         //To make sure that latches are not created create a default value for output.
-        default : Data_out = 128'b00000000; 
+        default : Data_out = 128'h7; 
     endcase
 endmodule
 
