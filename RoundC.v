@@ -97,6 +97,7 @@ module RoundF(
 );
 
 AddRoundKey ARKtest(StateIn, KeyIn, StateOut); // takes in In, Key, gives
+assign KeyOut = KeyIn;
 
 endmodule
 
