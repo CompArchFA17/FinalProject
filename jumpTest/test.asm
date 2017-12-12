@@ -1,0 +1,31 @@
+:center
+MOV 1 ACC
+JMP 3
+MOV 40 ACC
+JRO 0
+
+:up
+MOV 0 ACC
+JEZ 3
+MOV 40 ACC
+ADD 1
+JRO 0
+
+:left
+MOV 1 ACC
+JNZ 3
+MOV 40 ACC
+JRO 0
+
+:right
+MOV 1 ACC
+JGZ 3
+MOV 40 ACC
+JRO 0
+
+:down
+MOV -1 ACC
+JLZ 3
+MOV 40 ACC
+ADD 2
+JRO 0

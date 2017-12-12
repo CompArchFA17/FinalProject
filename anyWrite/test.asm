@@ -1,0 +1,24 @@
+:center
+MOV 1 ANY
+MOV 2 ANY
+MOV 3 ANY
+MOV 4 ANY
+MOV LAST ACC
+JRO 0
+
+:up
+MOV DOWN ACC
+JRO 0
+
+:left
+MOV RIGHT ACC
+JRO 0
+
+:right
+MOV LEFT ACC
+JRO 0
+
+:down
+MOV UP ACC
+MOV 5 UP
+JRO 0

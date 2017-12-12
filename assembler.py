@@ -1,4 +1,5 @@
 from bitstring import Bits
+import sys
 
 NIL_ADDR  = 0
 ACC_ADDR  = 1
@@ -43,8 +44,8 @@ instructions = {"ADD"  :0,
                 "JGZ"  :14,
                 "JLZ"  :15}
 
-srcLsit = ["ADD", "SUB", "JRO", "MOV"]
-immList = ["ADDI", "SUBI", "JROI", "MOVI"]
+srcLsit = ["ADD", "SUB", "JRO"]
+immList = ["ADDI", "SUBI", "JROI"]
 
 srcDst = ["MOV"]
 immDst = ["MOVI"]
@@ -53,15 +54,15 @@ labelList = ["JMP", "JEZ", "JNZ", "JGZ", "JLZ"]
 
 def assemble(line):
     line = line.replace(',', '')
-    if(line == "NOP"):
-        line = "ADD 0"
+    if(line.startswith("NOP")):
+        line = "ADD NIL"
     tokens = line.split()
     instruction = tokens[0];
-    inst = Bits(uint=instructions[instruction],length = 4).bin
-    if(instruction in srcLsit):
+    if(instruction in srcLsit or instruction in srcDst):
         source = tokens[1]
         if(source not in registers):
             instruction = instruction + "I"
+    inst = Bits(uint=instructions[instruction],length = 4).bin
 
     if instruction in srcLsit:
         dst = Bits(uint=0, length=3).bin
@@ -85,9 +86,37 @@ def assemble(line):
         label = Bits(uint=int(tokens[1]), length=4).bin
         pad = Bits(uint=0, length=10).bin
         return inst+label+pad
+    pad = Bits(uint=0, length = 14).bin;
+    return inst+pad
+if __name__ == '__main__':
+    infile = sys.argv[1]
+    prefix = infile.split("/")[0]+"/"
+    infile = open(infile, 'r')
+    lines = infile.readlines()
 
-print(assemble("ADD 1"))
-print(assemble("ADD ACC"))
-print(assemble("MOV LEFT RIGHT"))
-print(assemble("MOV 4 LEFT"))
-print(assemble("JMP 0"))
+    fName = ""
+    f = None
+    nLines = 0;
+    for line in lines:
+        line = line.replace("\n","")
+        if(line.startswith(":")):
+            while nLines < 16 and f is not None:
+                f.write("000000000000000000\n")
+                nLines += 1
+            fName = prefix+line[1:]+".dat"
+            nLines = 0
+            if f is not None:
+                f.close()
+            f = open(fName,'w')
+        elif(line == ""):
+            continue
+        else:
+            f.write(assemble(line)+"\n")
+            nLines += 1
+
+    while nLines < 16:
+        f.write("000000000000000000\n")
+        nLines += 1
+
+
+    infile.close()

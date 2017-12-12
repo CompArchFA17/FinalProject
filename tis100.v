@@ -57,7 +57,7 @@ module tis100(input clk,
               output[14:0] rightOut,
               output signed[10:0] accOut);
 
-parameter memFile = "memory.txt";
+parameter memFile = "memory.dat";
 
 //internal registers
 reg[2:0] mode;
@@ -68,7 +68,7 @@ reg[`ADDR_SIZE-1:0] readTarget;
 reg signed[10:0] readValue;
 reg signed[10:0] writeValue;
 
-reg[`INST_SIZE-1:0] instructions[15:0];
+reg[`INST_SIZE-1:0] instructions[0:15];
 reg[3:0] PC;
 reg[3:0] PCNEXT;
 
@@ -182,9 +182,7 @@ initial begin
    outVals[`LEFT_ADDR]  = 0;
    outVals[`RIGHT_ADDR] = 0;
 
-   instructions[0] = {`ADDI, 3'd0, 11'd1};
-   instructions[1] = {`ADD,  3'd0, `ACC_ADDR, 8'd0};
-   instructions[2] = {`JMP,  4'd1, 10'd0};
+   $readmemb(memFile, instructions);
 end
 
 always @(posedge clk) begin
@@ -206,6 +204,7 @@ always @(posedge clk) begin
                 mode <= `READ_MODE;
                 readTarget <= SRC;
                 weWantData[SRC] <= 1;
+                last <= SRC;
               end
             end//src is a port
             else if (SRC == `LAST_ADDR) begin//src is LAST
@@ -226,17 +225,7 @@ always @(posedge clk) begin
             end//src is last
             else if (SRC == `ANY_ADDR) begin//src is ANY
               if(anyHasData) begin//any port has data
-                if(portsHaveData[`UP_ADDR]) begin
-                  readValue <= regVals[`UP_ADDR];
-                  readAckOut[`UP_ADDR] <= 1;
-                  last <= `UP_ADDR;
-                end
-                else if(portsHaveData[`DOWN_ADDR]) begin
-                  readValue <= regVals[`DOWN_ADDR];
-                  readAckOut[`DOWN_ADDR] <= 1;
-                  last <= `DOWN_ADDR;
-                end
-                else if(portsHaveData[`LEFT_ADDR]) begin
+                if(portsHaveData[`LEFT_ADDR]) begin
                   readValue <= regVals[`LEFT_ADDR];
                   readAckOut[`LEFT_ADDR] <= 1;
                   last <= `LEFT_ADDR;
@@ -245,6 +234,16 @@ always @(posedge clk) begin
                   readValue <= regVals[`RIGHT_ADDR];
                   readAckOut[`RIGHT_ADDR] <= 1;
                   last <= `RIGHT_ADDR;
+                end
+                else if(portsHaveData[`UP_ADDR]) begin
+                  readValue <= regVals[`UP_ADDR];
+                  readAckOut[`UP_ADDR] <= 1;
+                  last <= `UP_ADDR;
+                end
+                else if(portsHaveData[`DOWN_ADDR]) begin
+                  readValue <= regVals[`DOWN_ADDR];
+                  readAckOut[`DOWN_ADDR] <= 1;
+                  last <= `DOWN_ADDR;
                 end
               end//any port has data
               else begin//no port has data
@@ -354,12 +353,6 @@ always @(posedge clk) begin
                     outVals[`UP_ADDR] <= writeValue;
                     last <= `UP_ADDR;
                   end
-                  else if(portsWantData[`DOWN_ADDR]) begin
-                    writeTarget <= `DOWN_ADDR;
-                    weHaveData[`DOWN_ADDR] <= 1;
-                    outVals[`DOWN_ADDR] <= writeValue;
-                    last <= `DOWN_ADDR;
-                  end
                   else if(portsWantData[`LEFT_ADDR]) begin
                     writeTarget <= `LEFT_ADDR;
                     weHaveData[`LEFT_ADDR] <= 1;
@@ -371,6 +364,12 @@ always @(posedge clk) begin
                     weHaveData[`RIGHT_ADDR] <= 1;
                     outVals[`RIGHT_ADDR] <= writeValue;
                     last <= `RIGHT_ADDR;
+                  end
+                  else if(portsWantData[`DOWN_ADDR]) begin
+                    writeTarget <= `DOWN_ADDR;
+                    weHaveData[`DOWN_ADDR] <= 1;
+                    outVals[`DOWN_ADDR] <= writeValue;
+                    last <= `DOWN_ADDR;
                   end
                 end
                 else begin//no one wants data
@@ -390,17 +389,7 @@ always @(posedge clk) begin
             if(anyHasData) begin
               mode <= `RUN_MODE;
               weWantData = 4'd0;
-              if(portsHaveData[`UP_ADDR]) begin
-                readValue <= regVals[`UP_ADDR];
-                readAckOut[`UP_ADDR] <= 1;
-                last <= `UP_ADDR;
-              end
-              else if(portsHaveData[`DOWN_ADDR]) begin
-                readValue <= regVals[`DOWN_ADDR];
-                readAckOut[`DOWN_ADDR] <= 1;
-                last <= `DOWN_ADDR;
-              end
-              else if(portsHaveData[`LEFT_ADDR]) begin
+              if(portsHaveData[`LEFT_ADDR]) begin
                 readValue <= regVals[`LEFT_ADDR];
                 readAckOut[`LEFT_ADDR] <= 1;
                 last <= `LEFT_ADDR;
@@ -409,6 +398,16 @@ always @(posedge clk) begin
                 readValue <= regVals[`RIGHT_ADDR];
                 readAckOut[`RIGHT_ADDR] <= 1;
                 last <= `RIGHT_ADDR;
+              end
+              else if(portsHaveData[`UP_ADDR]) begin
+                readValue <= regVals[`UP_ADDR];
+                readAckOut[`UP_ADDR] <= 1;
+                last <= `UP_ADDR;
+              end
+              else if(portsHaveData[`DOWN_ADDR]) begin
+                readValue <= regVals[`DOWN_ADDR];
+                readAckOut[`DOWN_ADDR] <= 1;
+                last <= `DOWN_ADDR;
               end
             end
           end//target is not ANY
@@ -445,12 +444,6 @@ always @(posedge clk) begin
                 outVals[`UP_ADDR] <= writeValue;
                 last <= `UP_ADDR;
               end
-              else if(portsWantData[`DOWN_ADDR]) begin
-                writeTarget <= `DOWN_ADDR;
-                weHaveData[`DOWN_ADDR] <= 1;
-                outVals[`DOWN_ADDR] <= writeValue;
-                last <= `DOWN_ADDR;
-              end
               else if(portsWantData[`LEFT_ADDR]) begin
                 writeTarget <= `LEFT_ADDR;
                 weHaveData[`LEFT_ADDR] <= 1;
@@ -463,18 +456,25 @@ always @(posedge clk) begin
                 outVals[`RIGHT_ADDR] <= writeValue;
                 last <= `RIGHT_ADDR;
               end
+              else if(portsWantData[`DOWN_ADDR]) begin
+                writeTarget <= `DOWN_ADDR;
+                weHaveData[`DOWN_ADDR] <= 1;
+                outVals[`DOWN_ADDR] <= writeValue;
+                last <= `DOWN_ADDR;
+              end
             end
           end
           phase <= `WRITE_PHASE;
         end
         `WRITE_PHASE: begin
-        if(writeTarget != `ANY_ADDR) begin//target is not any
-          if(writeAckIn[writeTarget]) begin//write was acked
-            weHaveData[writeTarget] = 0;
-            mode <= `RUN_MODE;
+          if(writeTarget != `ANY_ADDR) begin//target is not any
+            if(writeAckIn[writeTarget]) begin//write was acked
+              weHaveData[writeTarget] = 0;
+              mode <= `RUN_MODE;
+              last <= writeTarget;
+            end
           end
-        end
-        phase <= `READ_PHASE;
+          phase <= `READ_PHASE;
         end
       endcase
     end
