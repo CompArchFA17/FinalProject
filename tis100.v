@@ -58,6 +58,8 @@ module tis100(input clk,
               output signed[10:0] accOut);
 
 parameter memFile = "memory.dat";
+parameter debug = 0;
+
 
 //internal registers
 reg[2:0] mode;
@@ -330,6 +332,9 @@ always @(posedge clk) begin
             if(DST < 2 || (DST == `LAST_ADDR && last == `NIL_ADDR)) begin//DST is a register
               if(DST == `ACC_ADDR) begin
                 ACC <= writeValue;
+                if(debug) begin
+                  $display("ACC = %d", writeValue);
+                end
               end
             end//dst is a register
             else begin//dst is a port or pseudo port

@@ -25,7 +25,7 @@ module stackMemory
       phase = `READ_PHASE;
       pointer = initialpointer;
       out = 0;
-      
+
       if(loadmemory)
 	$readmemb(memoryfile, mem);
       if (pointer > 0) begin
@@ -55,18 +55,17 @@ module stackMemory
 	out[`WRITE_REQ_BIT] <= 1;
       else
 	out[`WRITE_REQ_BIT] <= 0;
-      
+
       if (pointer > 0)
 	out[`READ_REQ_BIT] <= 1;
       else
 	out[`READ_REQ_BIT] <= 0;
    end // always @ (pointer)
-   
+
    always @(posedge clk) begin
      case(phase)
        `READ_PHASE:
 	 if(in[`READ_REQ_BIT]) begin
-	    
 	    if(pointer < 15) begin
 	       pointer = pointer + 1;
 	       mem[pointer] = in[10:0];
@@ -84,7 +83,7 @@ module stackMemory
 	       out[`WRITE_ACK_BIT] <= 1;
 	    end
 	 end
-	 
+
      endcase
    end // always @ (posedge clk)
 
@@ -95,6 +94,6 @@ module stackMemory
       end
       phase = (phase + 1) % 3;
    end
-   
-   
+
+
 endmodule

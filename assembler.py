@@ -51,6 +51,7 @@ srcDst = ["MOV"]
 immDst = ["MOVI"]
 labelList = ["JMP", "JEZ", "JNZ", "JGZ", "JLZ"]
 
+symbols = {}
 
 def assemble(line):
     line = line.replace(',', '')
@@ -83,11 +84,17 @@ def assemble(line):
         dst = Bits(uint=addresses[tokens[2]], length=3).bin
         return inst+dst+imm
     if instruction in labelList:
-        label = Bits(uint=int(tokens[1]), length=4).bin
+        try:
+            label = Bits(uint=int(tokens[1]), length=4).bin
+        except:
+            label = Bits(uint=symbols[tokens[1]], length=4).bin
         pad = Bits(uint=0, length=10).bin
         return inst+label+pad
     pad = Bits(uint=0, length = 14).bin;
     return inst+pad
+
+
+
 if __name__ == '__main__':
     infile = sys.argv[1]
     prefix = infile.split("/")[0]+"/"
@@ -97,23 +104,33 @@ if __name__ == '__main__':
     fName = ""
     f = None
     nLines = 0;
+    currentLines = [];
     for line in lines:
         line = line.replace("\n","")
         if(line.startswith(":")):
+            for line2 in currentLines:
+                f.write(assemble(line2)+"\n")
             while nLines < 16 and f is not None:
-                f.write("000000000000000000\n")
+                f.write(assemble("JMP 0")+"\n")
                 nLines += 1
             fName = prefix+line[1:]+".dat"
             nLines = 0
+            symbols = {}
+            currentLines = []
             if f is not None:
                 f.close()
             f = open(fName,'w')
         elif(line == ""):
             continue
         else:
-            f.write(assemble(line)+"\n")
-            nLines += 1
+            if(line.endswith(":")):
+                symbols[line[:-1]]=nLines
+            else:
+                currentLines.append(line)
+                nLines += 1
 
+    for line2 in currentLines:
+        f.write(assemble(line2)+"\n")
     while nLines < 16:
         f.write("000000000000000000\n")
         nLines += 1
