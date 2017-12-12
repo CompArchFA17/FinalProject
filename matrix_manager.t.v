@@ -66,6 +66,25 @@ if (dataOut0 !== 5'd18 || dataOut1 !== 5'd19 || dataOut2 !== 5'd20 ||
 end
 
 next_row = 1'b0;
+
+#20
+
+if (dataOut0 !== 5'd21 || dataOut1 !== 5'd22 || dataOut2 !== 5'd23 ||
+	dataOut3 !== 5'd27 || dataOut4 !== 5'd28 || dataOut5 !== 5'd29 ||
+	dataOut6 !== 5'd0 || dataOut7 !== 5'd0 || dataOut8 !== 5'd0) begin
+	$display("test 4 FAILED: matrix manager did not output second matrix correctly");
+end
+
+next_row = 1'b1;
+
+#20
+
+if (dataOut0 !== 5'd0 || dataOut1 !== 5'd0 || dataOut2 !== 5'd0 ||
+	dataOut3 !== 5'd0 || dataOut4 !== 5'd0 || dataOut5 !== 5'd0 ||
+	dataOut6 !== 5'd0 || dataOut7 !== 5'd0 || dataOut8 !== 5'd0) begin
+	$display("test 5 FAILED: matrix manager did not output second matrix correctly");
+end
+
 $finish;
 
 end

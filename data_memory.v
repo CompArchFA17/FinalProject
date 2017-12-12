@@ -50,6 +50,6 @@ module memory
     assign data7 = memory[addr7 >> 2];
     assign data8 = memory[addr8 >> 2];
 
-    initial $readmemh("matrix_mem.dat", memory);
+    initial $readmemb("matrix_mem.dat", memory);
 
 endmodule

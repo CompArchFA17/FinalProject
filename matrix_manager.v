@@ -37,14 +37,15 @@ wire[ADDR_WIDTH-1:0] addr0, addr1, addr2, addr3, addr4, addr5, addr6, addr7, add
 
 memory #(
 		.width(DATA_WIDTH),
-		.addresswidth(ADDR_WIDTH)
+		.addresswidth(ADDR_WIDTH),
+		.depth(1024)
 	)
 	data_mem (	
 		.clk(clk),
 		.data0(dataOut0), .data1(dataOut1), .data2(dataOut2), .data3(dataOut3), .data4(dataOut4),
 		.data5(dataOut5), .data6(dataOut6), .data7(dataOut7), .data8(dataOut8),
-		.addr0(addr0), .addr1(addr1), .addr2(addr2), .addr3(addr3), .addr4(addr4),
-		.addr5(addr5), .addr6(addr6), .addr7(addr7), .addr8(addr8),
+		.addr0(addr0<<2), .addr1(addr1<<2), .addr2(addr2<<2), .addr3(addr3<<2), .addr4(addr4<<2),
+		.addr5(addr5<<2), .addr6(addr6<<2), .addr7(addr7<<2), .addr8(addr8<<2),
 		.writeEnable(dm_we),
 		.dataIn0(dataIn0), .dataIn1(dataIn1), .dataIn2(dataIn2), .dataIn3(dataIn3), .dataIn4(dataIn4),
 		.dataIn5(dataIn5), .dataIn6(dataIn6), .dataIn7(dataIn7), .dataIn8(dataIn8)
