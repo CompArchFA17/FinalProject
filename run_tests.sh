@@ -35,6 +35,7 @@ echo "	Running multiplexer tests..."
 echo "	Running fsm tests..."
 ./fsm
 
+cat prog_mem_unit_test.dat > prog_mem.dat
 echo "	Running prog_mem tests..."
 ./prog_mem
 
