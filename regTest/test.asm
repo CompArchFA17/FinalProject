@@ -1,0 +1,36 @@
+:center
+MOV 3 ACC
+SUB UP
+SUB 1
+ADD ACC
+ADD ACC
+ADD ACC
+SUB 7
+JRO 0
+
+:up
+MOV 1 DOWN
+MOV 1 ACC
+SAV
+MOV 5 ACC
+SWP
+JRO 0
+
+:left
+MOV -1 ACC
+NEG
+JRO 0
+
+:right
+MOV 5 ACC
+SWP
+MOV 1 ACC
+SAV
+SWP
+JRO 0
+
+:down
+JRO 2
+ADD 40
+ADD 1
+JRO 0
