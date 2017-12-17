@@ -4,8 +4,14 @@
 
 #### Abstract
 
+Parallel architectures open up possibilities in computing that are infeasible for standard CPUs. While the world of GPU architecture is often esoteric (if not proprietary or otherwise deliberately obfuscated), it is a fascinating and rapidly growing space with varied and powerful applications in modern computation. In this research project, we begin by moving from CPU to GPU architecture, examining the design decisions that drove the architectural differences between the two. We then delve further into vector processing, multithreading, memory access distribution, and other topics specifically relevant to the space of parallel computing. We conclude with some specific examples of constructs in graphics processing that take advantage of the strengths of parallel architecture.
+
 
 #### Motivation
+
+The Computer Architecture course was organized around designing and implementing CPU components, and eventually, a full CPU. We learned about various techniques for optimizing single-threaded performance, but delving into parallelism and multi-threading was beyond the scope of the class. We suspected that there were some very different design considerations in the space of parallel processors, and that as a result there would be some significant and interesting departures in GPU architecture from those that we studied.
+
+As it turns out, we were right. The space of GPU architecture is massive, and significantly different from anything we studied during the course of the semester. We quickly realized that the material we were discovering was sufficient to populate an entire second course, and decided that the way we could most effectively learn was to focus our project entirely on research. This is the culmination of our work: we didn’t implement anything, but hopefully you can learn something from our collected and summarized research below.
 
 
 ## Research
