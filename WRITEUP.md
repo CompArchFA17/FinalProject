@@ -24,7 +24,7 @@ Effectively, we have a choice between latency-optimized cores and throughput-opt
 
 #### The Shader Core
 
-(For many of these visuals and a lot of conceptual understanding, particular credit to Kayvon Fatahalian and his excellent talk, From Shader Code to a Teraflop: How Shader Cores Work)
+*For many of these visuals and a lot of conceptual understanding, particular credit to Kayvon Fatahalian and his excellent talk, [From Shader Code to a Teraflop: How Shader Cores Work](http://s08.idav.ucdavis.edu/fatahalian-gpu-architecture.pdf)*
 
 ![example CPU architecture](siggraph_cpu_design.PNG)
 
