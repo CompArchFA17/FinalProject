@@ -1,0 +1,61 @@
+possible links/ sources that might be useful: 
+
+Code and testbench for matrix manipulation (this is the one in files MatrixMulple_FromInternet files): 
+http://verilogcodes.blogspot.com/2015/11/verilog-code-for-matrix-multiplication.html 
+
+
+Discussion of packed vs unpacked arrays in verilog. Might apply just to system verilog, its unclear:  
+https://electronics.stackexchange.com/questions/101821/instantiating-multidimensional-array-in-system-verilog 
+https://electronics.stackexchange.com/questions/67468/2d-arrays-specification-in-verilog
+
+
+Example on multi-dimensional arrays: 
+http://www.asic-world.com/systemverilog/data_types11.html 
+
+Array and matrix declarations: 
+https://stackoverflow.com/questions/3011510/how-to-declare-and-use-1d-and-2d-byte-arrays-in-verilog 
+
+
+
+
+
+
+
+General verilog resource that looks good, has some stuff about vectors: 
+http://pages.cs.wisc.edu/~david/courses/cs552/S12/handouts/verilog2.pdf 
+
+
+
+
+
+
+****************************************************************************************************************************************************************************************************************************************************************************************
+
+AES Things
+
+Lecture slides on AES:
+https://engineering.purdue.edu/kak/compsec/NewLectures/Lecture8.pdf 
+
+
+Psuedocode of some of the algorithms: 
+https://www.ietf.org/rfc/rfc3394.txt 
+
+Visualization of the manipulations: 
+https://crypto.stackexchange.com/questions/20/what-are-the-practical-differences-between-256-bit-192-bit-and-128-bit-aes-enc/1527#1527 
+
+C code for implementing S-box: 
+https://en.wikipedia.org/wiki/Rijndael_S-box#Example_implementation_in_C_language 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
